@@ -6,5 +6,6 @@
 - 📫 How to reach me: [philepin@gmail.com](mailto:philepin@gmail.com)
 - 💖 Emoji lover: 😃🤖⚽️🏠🥋
 - ⚡ Fun fact: I’m a passionate soccer fan, a devoted family guy, and I love MMA!
+- 💡 Electrifying guy: I’m an Electrical Engineer with a zest for innovation.
 
 🚀 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.
