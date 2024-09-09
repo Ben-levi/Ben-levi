@@ -9,9 +9,6 @@
 - 💡 Electrifying guy: I’m an Electrical Engineer with a zest for innovation.
 
 🚀 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.
-# 💫 About Me:
-I’m interested in AI, tech in general, and Internet of Things (IoT).<br>🌱 I’m currently learning advanced neural networks, Python, and IoT systems.<br>💞️ I’m looking to collaborate on AI-driven projects, IoT innovations, and tech community initiatives.<br>📫 How to reach me: philepin@gmail.com<br>💖 Emoji lover: 😃🤖⚽️🏠🥋<br>⚡ Fun fact: I’m a passionate soccer fan, a devoted family guy, and I love MMA!<br>💡 Electrifying guy: I’m an Electrical Engineer with a zest for innovation.<br>🚀 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.
-
 
 ## 🌐 Socials:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/Ben levi) 
