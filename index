@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name - Personal Page</title>
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --text-color: #c9d1d9;
+      --accent-color: #58a6ff;
+      --card-color: #161b22;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      animation: fadeIn 2s ease-in;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #8b949e;
+    }
+
+    .card {
+      background-color: var(--card-color);
+      padding: 20px;
+      margin-top: 40px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: slideUp 1.5s ease-out;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Name</h1>
+    <p>Developer • Dreamer • Doer</p>
+  </header>
+
+  <div class="card">
+    <h2>About Me</h2>
+    <p>Hello! I'm a passionate developer who loves building cool things on the web. Currently exploring open-source projects and contributing to the dev community.</p>
+    <p>Check out my work on <a href="https://github.com/yourusername" target="_blank">GitHub</a>.</p>
+  </div>
+
+  <footer>
+    &copy; 2025 Your Name. Built with ❤ and GitHub Pages.
+  </footer>
+</body>
+</html>
