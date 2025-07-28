@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name - Personal Page</title>
+  <title>Ben-levi - Personal Page</title>
   <style>
     :root {
       --bg-color: #0d1117;
@@ -16,6 +16,54 @@
     
     * {
       box-sizing: border-box;
+    }
+    
+    /* Enhanced Mouse Cursor */
+    body {
+      cursor: none;
+    }
+    
+    .custom-cursor {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle, rgba(88, 166, 255, 0.9), rgba(124, 58, 237, 0.6));
+      border: 1px solid rgba(88, 166, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 12px rgba(88, 166, 255, 0.7);
+      opacity: 1;
+    }
+    
+    .cursor-trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: rgba(88, 166, 255, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.3s ease;
+    }
+    
+    /* Mouse Highlight Effect */
+    .mouse-highlight {
+      position: fixed;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      transition: all 0.2s ease;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+    
+    body:hover .mouse-highlight {
+      opacity: 1;
     }
     
     .pizza-container {
@@ -48,176 +96,26 @@
       border: 2px solid #654321;
     }
     
-    .pizza-slice {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      transform-origin: 0 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 3;
-    }
-    
-    .pizza-slice::before {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-left: 95px solid transparent;
-      border-right: 95px solid transparent;
-      border-bottom: 95px solid;
-      border-bottom-color: inherit;
-      transform: translateX(-95px);
-      opacity: 0.9;
-      transition: all 0.3s ease;
-    }
-    
-    .pizza-slice:hover::before {
-      transform: translateX(-95px) scale(1.05);
-      opacity: 1;
-      filter: brightness(1.2) drop-shadow(0 0 10px currentColor);
-    }
-    
-    .pizza-slice:hover {
-      z-index: 10;
-    }
-    
-    .tech-icon {
-      position: absolute;
-      top: -60px;
-      left: -12px;
-      font-size: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid currentColor;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-      z-index: 5;
-    }
-    
-    .pizza-slice:hover .tech-icon {
-      transform: scale(1.2);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    }
-    
-    .tech-tooltip {
-      position: fixed;
-      background: var(--card-color);
-      color: var(--text-color);
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      border: 2px solid var(--accent-color);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      z-index: 1001;
-      backdrop-filter: blur(10px);
-      max-width: 200px;
-      text-align: center;
-      line-height: 1.4;
-    }
-    
-    .pizza-slice:hover .tech-tooltip {
-      opacity: 1;
-    }
-    
-    .pizza-toppings {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      top: 0;
-      left: 0;
-      z-index: 2;
-      pointer-events: none;
-    }
-    
-    .topping {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.8;
-      transition: all 0.3s ease;
-    }
-    
-    .pepperoni {
-      background: radial-gradient(circle at 30% 30%, #DC143C, #8B0000);
-      width: 12px;
-      height: 12px;
-      border: 1px solid #660000;
-      box-shadow: inset 1px 1px 2px rgba(220, 20, 60, 0.5);
-    }
-    
-    .cheese-bubble {
-      background: radial-gradient(circle at 40% 40%, #FFFACD, #FFD700);
-      width: 8px;
-      height: 8px;
-      border: 1px solid #DAA520;
-    }
-    
-    .mushroom {
-      background: radial-gradient(circle at 30% 30%, #DEB887, #8B7355);
-      width: 10px;
-      height: 10px;
-      border: 1px solid #654321;
-    }
-    
-    .pizza-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle at 40% 40%, #FFFACD, #FFD700, #FFA500);
-      border-radius: 50%;
-      border: 3px solid #DAA520;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      z-index: 20;
-      box-shadow: 
-        0 0 10px rgba(255, 215, 0, 0.6),
-        inset 0 0 15px rgba(255, 255, 255, 0.3);
-      animation: cheeseGlow 3s ease-in-out infinite alternate;
-    }
-    
-    @keyframes cheeseGlow {
-      from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3); }
-      to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.9), inset 0 0 25px rgba(255, 255, 255, 0.5); }
-    }
-    
     .dashboard-container {
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 300px;
+      width: 220px;
       background: rgba(22, 27, 34, 0.95);
-      border-radius: 12px;
+      border-radius: 8px;
       border: 1px solid rgba(88, 166, 255, 0.3);
       backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       z-index: 1000;
-      padding: 20px;
+      padding: 12px;
       transition: all 0.3s ease;
     }
     
     .dashboard-header {
       color: var(--accent-color);
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       text-align: center;
     }
     
@@ -225,11 +123,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding: 8px;
+      margin-bottom: 6px;
+      padding: 4px 6px;
       background: rgba(33, 38, 45, 0.5);
-      border-radius: 6px;
-      border-left: 3px solid transparent;
+      border-radius: 4px;
+      border-left: 2px solid transparent;
       transition: all 0.3s ease;
     }
     
@@ -239,19 +137,19 @@
     }
     
     .metric-label {
-      font-size: 12px;
+      font-size: 9px;
       color: var(--text-color);
     }
     
     .metric-value {
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 600;
       color: var(--accent-color);
     }
     
     .progress-bar {
-      width: 60px;
-      height: 4px;
+      width: 40px;
+      height: 3px;
       background: rgba(88, 166, 255, 0.2);
       border-radius: 2px;
       overflow: hidden;
@@ -265,10 +163,10 @@
     }
     
     .mini-chart {
-      width: 80px;
-      height: 20px;
+      width: 50px;
+      height: 15px;
       background: rgba(88, 166, 255, 0.1);
-      border-radius: 3px;
+      border-radius: 2px;
       position: relative;
       overflow: hidden;
     }
@@ -281,6 +179,8 @@
       transition: height 0.5s ease;
       margin-right: 1px;
     }
+    
+    body {
       margin: 0;
       padding: 0;
       background: var(--bg-color);
@@ -305,7 +205,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: -1;
+      z-index: 2;
     }
     
     .spark {
@@ -344,7 +244,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
     }
     
     .particle {
@@ -372,6 +272,7 @@
       text-align: center;
       margin: 50px 0 30px;
       position: relative;
+      z-index: 10;
     }
     
     .profile-image {
@@ -386,6 +287,12 @@
       font-size: 3rem;
       animation: pulse 2s infinite;
       box-shadow: 0 0 30px rgba(88, 166, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .profile-image:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 50px rgba(88, 166, 255, 0.6);
     }
     
     h1 {
@@ -417,6 +324,23 @@
       border-radius: 20px;
       transition: all 0.3s ease;
       border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .social-link:hover::before {
+      left: 100%;
     }
     
     .social-link:hover {
@@ -440,6 +364,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
+      z-index: 10;
     }
     
     .card::before {
@@ -460,6 +385,7 @@
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      border-color: rgba(88, 166, 255, 0.3);
     }
     
     .card h2 {
@@ -483,11 +409,14 @@
       font-size: 0.9em;
       border: 1px solid rgba(88, 166, 255, 0.3);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     
     .skill-tag:hover {
       background: rgba(88, 166, 255, 0.2);
       transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
     }
     
     .projects-grid {
@@ -503,17 +432,38 @@
       border-radius: 12px;
       border: 1px solid rgba(88, 166, 255, 0.1);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), rgba(124, 58, 237, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .project-card:hover::after {
+      opacity: 1;
     }
     
     .project-card:hover {
       border-color: var(--accent-color);
       transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2);
     }
     
     .project-title {
       color: var(--accent-color);
       font-weight: 600;
       margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
     }
     
     .cta-button {
@@ -527,6 +477,23 @@
       margin-top: 20px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
     }
     
     .cta-button:hover {
@@ -554,6 +521,18 @@
       text-align: center;
       border-top: 1px solid rgba(88, 166, 255, 0.1);
       width: 100%;
+      z-index: 10;
+      position: relative;
+    }
+    
+    /* Hover effects for interactive elements */
+    .interactive-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .interactive-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
     }
     
     @keyframes fadeIn {
@@ -625,43 +604,56 @@
       .projects-grid { grid-template-columns: 1fr; }
       
       .dashboard-container {
-        width: 180px;
+        width: 140px;
         top: 10px;
         right: 10px;
-        padding: 10px;
+        padding: 6px;
       }
       
       .dashboard-header {
-        font-size: 10px;
-        margin-bottom: 8px;
+        font-size: 8px;
+        margin-bottom: 5px;
       }
       
       .metric-row {
-        margin-bottom: 6px;
-        padding: 4px;
+        margin-bottom: 3px;
+        padding: 2px 3px;
       }
       
       .metric-label, .metric-value {
-        font-size: 9px;
+        font-size: 7px;
       }
       
       .progress-bar {
-        width: 35px;
+        width: 25px;
         height: 2px;
       }
       
       .mini-chart {
-        width: 45px;
-        height: 12px;
+        width: 30px;
+        height: 8px;
+      }
+      
+      .custom-cursor, .mouse-highlight {
+        display: none;
+      }
+      
+      body {
+        cursor: auto;
       }
     }
   </style>
 </head>
 <body>
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="mouse-highlight" id="mouseHighlight"></div>
+  
   <div class="sparks-container" id="sparksContainer"></div>
   <div class="floating-particles" id="particlesContainer"></div>
   
   <!-- Real-time Dashboard -->
+  <!-- TODO: Connect to real monitoring system - Replace static values with API calls -->
+  <!-- Integration points: Docker API, Kubernetes metrics, AWS CloudWatch, CI/CD webhooks -->
   <div class="dashboard-container">
     <div class="dashboard-header">⚡ DevOps Metrics Dashboard</div>
     <div class="metric-row">
@@ -701,11 +693,12 @@
     <div class="profile-image">🤖</div>
     <h1>Ben-levi</h1>
     <p class="tagline">AI Enthusiast • Electrical Engineer • Tech Innovator</p>
+    <!-- EDIT SOCIAL LINKS: Update these URLs with your actual social media profiles -->
     <div class="social-links">
-      <a href="https://github.com/Ben-levi" target="_blank" class="social-link">GitHub</a>
-      <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link">LinkedIn</a>
-      <a href="mailto:philepin@gmail.com" class="social-link">Email</a>
-      <a href="https://twitter.com/ben_levi" target="_blank" class="social-link">Twitter</a>
+      <a href="https://github.com/Ben-levi" target="_blank" class="social-link interactive-hover">GitHub</a>
+      <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link interactive-hover">LinkedIn</a>
+      <a href="mailto:philepin@gmail.com" class="social-link interactive-hover">Email</a>
+      <a href="https://twitter.com/ben_levi" target="_blank" class="social-link interactive-hover">Twitter</a>
     </div>
   </header>
 
@@ -801,222 +794,14 @@
   <div class="card">
     <h2>📊 GitHub Stats</h2>
     <div style="text-align: center; margin: 20px 0;">
-      <img src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+      <img src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" class="interactive-hover">
       <br>
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Ben-levi&theme=dark&hide_border=true" alt="GitHub Streak" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Ben-levi&theme=dark&hide_border=true" alt="GitHub Streak" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" class="interactive-hover">
       <br>
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages" style="max-width: 100%; height: auto; border-radius: 8px;">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages" style="max-width: 100%; height: auto; border-radius: 8px;" class="interactive-hover">
     </div>
   </div>
 
   <div class="card">
     <h2>🏆 GitHub Trophies</h2>
     <div style="text-align: center; margin: 20px 0;">
-      <img src="https://github-profile-trophy.vercel.app/?username=Ben-levi&theme=darkhub&no-frame=true&no-bg=false&margin-w=4" alt="GitHub Trophies" style="max-width: 100%; height: auto;">
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>✍️ Random Dev Quote</h2>
-    <div style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(88, 166, 255, 0.1); border-radius: 10px; border-left: 4px solid var(--accent-color);">
-      <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark" alt="Random Dev Quote" style="max-width: 100%; height: auto;">
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>🤝 Let's Connect & Collaborate</h2>
-    <p>I'm always interested in collaborating on <strong>AI-driven projects</strong>, <strong>IoT innovations</strong>, and <strong>tech community initiatives</strong>. Whether you have a groundbreaking project idea, want to contribute to open source, or just want to chat about the latest in AI and IoT, feel free to reach out!</p>
-    <p>As a passionate tech enthusiast and electrical engineer, I love connecting with fellow innovators who share the same excitement for pushing technological boundaries. 🚀</p>
-    <a href="mailto:philepin@gmail.com" class="cta-button">Get In Touch 📫</a>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Ben-levi. Built with ❤️, AI enthusiasm, and lots of ⚡ electrical engineering magic!</p>
-    <p>😃🤖⚽️🏠🥋 - Living life with passion for tech, family, and fun!</p>
-  </footer>
-
-  <script>
-    // Create animated mini charts
-    function createMiniChart(containerId, dataPoints) {
-      const container = document.getElementById(containerId);
-      const chartWidth = 60;
-      const barWidth = 2;
-      const barCount = Math.floor(chartWidth / (barWidth + 1));
-      
-      for (let i = 0; i < barCount; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'chart-line';
-        bar.style.left = `${i * (barWidth + 1)}px`;
-        bar.style.height = `${Math.random() * 100}%`;
-        container.appendChild(bar);
-      }
-    }
-    
-    // Animate charts
-    function animateCharts() {
-      const k8sChart = document.getElementById('k8sChart');
-      const awsChart = document.getElementById('awsChart');
-      
-      setInterval(() => {
-        // Animate K8s chart
-        const k8sBars = k8sChart.querySelectorAll('.chart-line');
-        k8sBars.forEach(bar => {
-          bar.style.height = `${20 + Math.random() * 60}%`;
-        });
-        
-        // Animate AWS chart
-        const awsBars = awsChart.querySelectorAll('.chart-line');
-        awsBars.forEach(bar => {
-          bar.style.height = `${10 + Math.random() * 70}%`;
-        });
-      }, 2000);
-    }
-    
-    // Update dashboard metrics randomly
-    function updateMetrics() {
-      setInterval(() => {
-        const progressBars = document.querySelectorAll('.progress-fill');
-        const metricValues = document.querySelectorAll('.metric-value');
-        
-        progressBars.forEach((bar, index) => {
-          const randomValue = 80 + Math.random() * 20;
-          bar.style.width = randomValue + '%';
-          
-          if (metricValues[index]) {
-            const text = metricValues[index].textContent;
-            if (text.includes('%')) {
-              metricValues[index].textContent = Math.round(randomValue) + '%';
-            }
-          }
-        });
-      }, 3000);
-    }
-    function createSpark() {
-      const spark = document.createElement('div');
-      spark.className = 'spark';
-      
-      // Random position
-      spark.style.left = Math.random() * 100 + '%';
-      spark.style.top = Math.random() * 100 + '%';
-      
-      // Random animation duration
-      spark.style.animationDuration = (2 + Math.random() * 4) + 's';
-      
-      document.getElementById('sparksContainer').appendChild(spark);
-      
-      // Remove spark after animation
-      setTimeout(() => {
-        if (spark.parentNode) {
-          spark.parentNode.removeChild(spark);
-        }
-      }, 4000);
-    }
-    
-    // Create floating particles
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      
-      // Random starting position
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.top = '100vh';
-      
-      // Random size
-      const size = 1 + Math.random() * 3;
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      
-      // Random animation duration and delay
-      particle.style.animationDuration = (15 + Math.random() * 20) + 's';
-      particle.style.animationDelay = Math.random() * 5 + 's';
-      
-      document.getElementById('particlesContainer').appendChild(particle);
-      
-      // Remove particle after animation
-      setTimeout(() => {
-        if (particle.parentNode) {
-          particle.parentNode.removeChild(particle);
-        }
-      }, 35000);
-    }
-    
-    // Initialize animations
-    function initAnimations() {
-      // Create initial sparks
-      for (let i = 0; i < 15; i++) {
-        setTimeout(createSpark, Math.random() * 2000);
-      }
-      
-      // Create initial particles
-      for (let i = 0; i < 20; i++) {
-        setTimeout(createParticle, Math.random() * 3000);
-      }
-      
-      // Continuously create sparks
-      setInterval(() => {
-        createSpark();
-      }, 800);
-      
-      // Continuously create particles
-      setInterval(() => {
-        createParticle();
-      }, 1500);
-    }
-    
-    // Add interactive sparks on mouse movement
-    let lastSparkTime = 0;
-    document.addEventListener('mousemove', (e) => {
-      const now = Date.now();
-      if (now - lastSparkTime > 200) { // Throttle spark creation
-        const spark = document.createElement('div');
-        spark.className = 'spark';
-        spark.style.left = e.clientX + 'px';
-        spark.style.top = e.clientY + 'px';
-        spark.style.position = 'fixed';
-        spark.style.animationDuration = '2s';
-        
-        document.getElementById('sparksContainer').appendChild(spark);
-        
-        setTimeout(() => {
-          if (spark.parentNode) {
-            spark.parentNode.removeChild(spark);
-          }
-        }, 2000);
-        
-        lastSparkTime = now;
-      }
-    });
-    
-    // Add click burst effect
-    document.addEventListener('click', (e) => {
-      for (let i = 0; i < 8; i++) {
-        setTimeout(() => {
-          const spark = document.createElement('div');
-          spark.className = 'spark';
-          spark.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
-          spark.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
-          spark.style.position = 'fixed';
-          spark.style.animationDuration = '1.5s';
-          
-          document.getElementById('sparksContainer').appendChild(spark);
-          
-          setTimeout(() => {
-            if (spark.parentNode) {
-              spark.parentNode.removeChild(spark);
-            }
-          }, 1500);
-        }, i * 100);
-      }
-    });
-    
-    // Start animations when page loads
-    window.addEventListener('load', () => {
-      initAnimations();
-      createMiniChart('k8sChart', []);
-      createMiniChart('awsChart', []);
-      animateCharts();
-      updateMetrics();
-    });
-  </script>
-</body>
-</html>
