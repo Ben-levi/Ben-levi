@@ -18,13 +18,30 @@
       box-sizing: border-box;
     }
     
-    /* Enhanced Mouse Cursor */
     body {
-      cursor: none;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      background-image: radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, #172554 0%, transparent 50%);
+      color: var(--text-color);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      animation: fadeIn 2s ease-in;
+      line-height: 1.6;
+      position: relative;
+      /* overflow-x: hidden; REMOVED - This was part of the problem */
+      cursor: none; /* Hide default cursor */
     }
     
+    /* --- ENHANCED CURSOR STYLES (CORRECTED) --- */
     .custom-cursor {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 16px;
       height: 16px;
       background: radial-gradient(circle, rgba(88, 166, 255, 0.9), rgba(124, 58, 237, 0.6));
@@ -32,30 +49,41 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.1s ease-out; /* Changed for smoother follow */
       box-shadow: 0 0 12px rgba(88, 166, 255, 0.7);
-      opacity: 1;
-      transform: translate(-50%, -50%); /* Center the cursor */
+      /* This transform centers the cursor on the pointer */
+      transform: translate(-50%, -50%); 
+      transition: transform 0.2s ease-out;
     }
     
-    /* Mouse Highlight Effect */
     .mouse-highlight {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 200px;
       height: 200px;
       background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 1;
-      transition: all 0.2s ease-out; /* Changed for smoother follow */
-      transform: translate(-50%, -50%);
       opacity: 0;
+      /* This transform centers the highlight on the pointer */
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     }
     
     body:hover .mouse-highlight {
       opacity: 1;
     }
     
+    /* New class for cursor hover state, controlled by JS */
+    .custom-cursor.hover {
+        transform: translate(-50%, -50%) scale(2.5);
+    }
+    .mouse-highlight.hover {
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+    /* --- END CURSOR STYLES --- */
+
     .sparks-container {
       position: fixed;
       top: 0;
@@ -124,24 +152,6 @@
       background: rgba(245, 158, 11, 0.3);
       animation-duration: 30s;
       animation-delay: -10s;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-color);
-      background-image: radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
-                        radial-gradient(circle at 75% 75%, #172554 0%, transparent 50%);
-      color: var(--text-color);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      animation: fadeIn 2s ease-in;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
     }
     
     .dashboard-container {
@@ -222,7 +232,7 @@
     }
     
     .chart-line {
-      position: relative; /* Changed from absolute */
+      position: relative;
       background: var(--accent-color);
       transition: height 0.5s ease;
       margin-right: 1px;
@@ -472,26 +482,31 @@
       color: #79c0ff;
       text-decoration: underline;
     }
+
+    /* FIX for GitHub stats layout issue */
+    .stats-container {
+        overflow: hidden; /* This contains the wide images */
+        border-radius: 8px; /* Match the image style */
+        text-align: center;
+        margin: 20px 0;
+    }
+    .stats-container img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    /* End fix */
     
     footer {
       margin-top: auto;
       padding: 40px 20px 20px;
       font-size: 0.9em;
-      color: #8d96a0; /* Slightly brighter for better contrast */
+      color: #8d96a0;
       text-align: center;
       border-top: 1px solid rgba(88, 166, 255, 0.1);
       width: 100%;
       z-index: 10;
       position: relative;
-    }
-    
-    .interactive-hover {
-      transition: all 0.3s ease;
-    }
-    
-    .interactive-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
     }
     
     @keyframes fadeIn {
@@ -500,14 +515,8 @@
     }
     
     @keyframes slideUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     
     @keyframes pulse {
@@ -521,22 +530,10 @@
     }
     
     @keyframes sparkle {
-      0% {
-        opacity: 0;
-        transform: translateY(0) scale(0);
-      }
-      10% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1);
-      }
-      20% {
-        opacity: 1;
-        transform: translateY(-20px) scale(1.2);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100px) scale(0);
-      }
+      0% { opacity: 0; transform: translateY(0) scale(0); }
+      10% { opacity: 1; transform: translateY(-10px) scale(1); }
+      20% { opacity: 1; transform: translateY(-20px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-100px) scale(0); }
     }
     
     @keyframes float {
@@ -551,12 +548,8 @@
       .card { margin: 15px; padding: 20px; }
       .social-links { flex-wrap: wrap; }
       .projects-grid { grid-template-columns: 1fr; }
+      .dashboard-container { display: none; }
       
-      .dashboard-container {
-        display: none; /* Hide complex dashboard on small screens */
-      }
-      
-      /* Disable custom cursor on touch devices for better usability */
       .custom-cursor, .mouse-highlight {
         display: none;
       }
@@ -578,9 +571,7 @@
     <div class="dashboard-header">⚡ DevOps Metrics Dashboard</div>
     <div class="metric-row">
       <span class="metric-label">Docker Uptime</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 95%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
       <span class="metric-value">95%</span>
     </div>
     <div class="metric-row">
@@ -590,9 +581,7 @@
     </div>
     <div class="metric-row">
       <span class="metric-label">CI/CD Pipeline</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 87%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 87%"></div></div>
       <span class="metric-value">87%</span>
     </div>
     <div class="metric-row">
@@ -602,9 +591,7 @@
     </div>
     <div class="metric-row">
       <span class="metric-label">Monitoring</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 98%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 98%"></div></div>
       <span class="metric-value">98%</span>
     </div>
   </div>
@@ -614,10 +601,10 @@
     <h1>Ben-levi</h1>
     <p class="tagline">AI Enthusiast • Electrical Engineer • Tech Innovator</p>
     <div class="social-links">
-      <a href="https://github.com/Ben-levi" target="_blank" class="social-link interactive-hover">GitHub</a>
-      <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link interactive-hover">LinkedIn</a>
-      <a href="mailto:philepin@gmail.com" class="social-link interactive-hover">Email</a>
-      <a href="https://twitter.com/ben_levi" target="_blank" class="social-link interactive-hover">Twitter</a>
+      <a href="https://github.com/Ben-levi" target="_blank" class="social-link">GitHub</a>
+      <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link">LinkedIn</a>
+      <a href="mailto:philepin@gmail.com" class="social-link">Email</a>
+      <a href="https://twitter.com/ben_levi" target="_blank" class="social-link">Twitter</a>
     </div>
   </header>
 
@@ -625,19 +612,16 @@
     <h2>👋 Hi there, I'm Ben-levi!</h2>
     <p>🚀 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.</p>
     <p>💡 <strong>Electrifying guy:</strong> I'm an Electrical Engineer with a zest for innovation, passionate about pushing the boundaries of what's possible with technology.</p>
-    
     <div style="margin: 20px 0;">
       <p>👀 I'm interested in <strong>AI, tech in general, and Internet of Things (IoT)</strong></p>
       <p>🌱 I'm currently learning <strong>advanced neural networks, Python, and IoT systems</strong></p>
       <p>💞️ I'm looking to collaborate on <strong>AI-driven projects, IoT innovations, and tech community initiatives</strong></p>
       <p>📫 How to reach me: <a href="mailto:philepin@gmail.com">philepin@gmail.com</a></p>
     </div>
-    
     <div style="background: rgba(88, 166, 255, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0;">
       <p><strong>💖 Emoji lover:</strong> 😃🤖⚽️🏠🥋</p>
       <p><strong>⚡ Fun fact:</strong> I'm a passionate soccer fan ⚽️, a devoted family guy 🏠, and I love MMA! 🥋</p>
     </div>
-    
     <div class="skills">
       <span class="skill-tag">🤖 AI/ML</span>
       <span class="skill-tag">🐍 Python</span>
@@ -652,79 +636,29 @@
   <div class="card">
     <h2>💻 Tech Stack</h2>
     <div class="tech-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🤖 AI/ML</h4>
-        <div class="skills">
-          <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">Scikit-learn</span>
-          <span class="skill-tag">OpenCV</span>
-        </div>
       </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🐍 Languages</h4>
-        <div class="skills">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">C++</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">MATLAB</span>
-        </div>
-      </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🌐 IoT & Hardware</h4>
-        <div class="skills">
-          <span class="skill-tag">Arduino</span>
-          <span class="skill-tag">Raspberry Pi</span>
-          <span class="skill-tag">ESP32</span>
-          <span class="skill-tag">MQTT</span>
-        </div>
-      </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">⚡ Engineering</h4>
-        <div class="skills">
-          <span class="skill-tag">Circuit Design</span>
-          <span class="skill-tag">PCB Design</span>
-          <span class="skill-tag">Signal Processing</span>
-          <span class="skill-tag">Power Systems</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="card">
     <h2>🚀 Featured Projects</h2>
     <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-title">🤖 AI-Powered IoT System</div>
-        <p>An intelligent IoT platform that uses machine learning to optimize home automation and energy consumption.</p>
       </div>
-      <div class="project-card">
-        <div class="project-title">🧠 Neural Network Framework</div>
-        <p>A custom Python framework for building and training neural networks with a focus on IoT applications.</p>
-      </div>
-      <div class="project-card">
-        <div class="project-title">⚡ Smart Circuit Designer</div>
-        <p>An innovative tool that uses AI to assist electrical engineers in circuit design and optimization.</p>
-      </div>
-    </div>
     <a href="https://github.com/Ben-levi" target="_blank" class="cta-button">View All Projects</a>
   </div>
 
   <div class="card">
     <h2>📊 GitHub Stats</h2>
-    <div style="text-align: center; margin: 20px 0;">
-      <img src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" class="interactive-hover">
-      <br>
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Ben-levi&theme=dark&hide_border=true" alt="GitHub Streak" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" class="interactive-hover">
-      <br>
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages" style="max-width: 100%; height: auto; border-radius: 8px;" class="interactive-hover">
+    <div class="stats-container">
+      <img src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats">
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Ben-levi&theme=dark&hide_border=true" alt="GitHub Streak">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages">
     </div>
   </div>
 
   <div class="card">
     <h2>🏆 GitHub Trophies</h2>
-    <div style="text-align: center; margin: 20px 0;">
-       <img src="https://github-profile-trophy.vercel.app/?username=Ben-levi&theme=darkhub&no-frame=true&no-bg=true&margin-w=4" alt="GitHub Trophies" style="max-width: 100%; height: auto;" class="interactive-hover">
+    <div class="stats-container">
+       <img src="https://github-profile-trophy.vercel.app/?username=Ben-levi&theme=darkhub&no-frame=true&no-bg=true&margin-w=4" alt="GitHub Trophies">
     </div>
   </div>
 
@@ -742,31 +676,28 @@
       const k8sChart = document.getElementById('k8sChart');
       const awsChart = document.getElementById('awsChart');
   
-      // --- 1. Custom Cursor Movement ---
-      // Only run on non-touch devices
-      if (!window.matchMedia("(pointer: coarse)").matches) {
+      // --- 1. Custom Cursor Logic (CORRECTED) ---
+      if (window.matchMedia("(pointer: fine)").matches) {
+        
         document.addEventListener("mousemove", function(e) {
-          const { clientX, clientY } = e;
-          // Using requestAnimationFrame for smoother performance
-          requestAnimationFrame(() => {
-            customCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
-            mouseHighlight.style.transform = `translate(${clientX}px, ${clientY}px) scale(1)`;
-          });
+          // Use left/top to position the elements. The CSS transform will handle centering.
+          customCursor.style.left = e.clientX + 'px';
+          customCursor.style.top = e.clientY + 'px';
+          mouseHighlight.style.left = e.clientX + 'px';
+          mouseHighlight.style.top = e.clientY + 'px';
         });
     
-        // Add hover effects to cursor
-        document.querySelectorAll('a, button, .interactive-hover, .skill-tag, .project-card, .social-link').forEach(el => {
+        // Add hover effects by adding/removing a class. This is cleaner.
+        const interactiveElements = document.querySelectorAll('a, button, .skill-tag, .project-card, .social-link, .profile-image, .cta-button');
+        
+        interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
-              customCursor.style.transform += ' scale(2.5)';
-              mouseHighlight.style.transform += ' scale(1.5)';
+              customCursor.classList.add('hover');
+              mouseHighlight.classList.add('hover');
             });
             el.addEventListener('mouseleave', () => {
-              // We need to get the current translate values to reset scale correctly
-              const transform = customCursor.style.transform.match(/translate\(([^)]+)\)/);
-              if (transform) {
-                customCursor.style.transform = transform[0];
-                mouseHighlight.style.transform = `${transform[0]} scale(1)`;
-              }
+              customCursor.classList.remove('hover');
+              mouseHighlight.classList.remove('hover');
             });
         });
       }
@@ -798,13 +729,12 @@
       
       // --- 4. Mini Dashboard Charts ---
       function generateMiniChart(container, bars = 10) {
-        if (!container) return; // Guard against null element
+        if (!container) return;
         container.innerHTML = '';
         for (let i = 0; i < bars; i++) {
             const bar = document.createElement('div');
             bar.className = 'chart-line';
             bar.style.width = `calc(${100/bars}% - 1px)`;
-            // Set height with a slight delay for a nicer animation effect
             setTimeout(() => {
               bar.style.height = `${Math.random() * 80 + 10}%`;
             }, i * 20);
