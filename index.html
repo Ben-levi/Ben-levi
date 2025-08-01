@@ -32,20 +32,10 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.1s ease;
+      transition: transform 0.1s ease-out; /* Changed for smoother follow */
       box-shadow: 0 0 12px rgba(88, 166, 255, 0.7);
       opacity: 1;
-    }
-    
-    .cursor-trail {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: rgba(88, 166, 255, 0.3);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.3s ease;
+      transform: translate(-50%, -50%); /* Center the cursor */
     }
     
     /* Mouse Highlight Effect */
@@ -57,7 +47,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 1;
-      transition: all 0.2s ease;
+      transition: all 0.2s ease-out; /* Changed for smoother follow */
       transform: translate(-50%, -50%);
       opacity: 0;
     }
@@ -66,34 +56,92 @@
       opacity: 1;
     }
     
-    .pizza-container {
+    .sparks-container {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 200px;
-      height: 200px;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-    
-    .pizza-container:hover {
-      transform: scale(1.1);
-      box-shadow: 0 12px 40px rgba(88, 166, 255, 0.6);
-    }
-    
-    .pizza-chart {
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    .spark {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-color);
       border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 4s infinite ease-in-out;
+      box-shadow: 0 0 6px var(--accent-color);
+    }
+    
+    .spark:nth-child(odd) {
+      background: #7c3aed;
+      box-shadow: 0 0 6px #7c3aed;
+      animation-delay: -2s;
+    }
+    
+    .spark:nth-child(3n) {
+      background: #f59e0b;
+      box-shadow: 0 0 6px #f59e0b;
+      animation-delay: -1s;
+    }
+    
+    .spark:nth-child(4n) {
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+      animation-delay: -3s;
+    }
+    
+    .floating-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(88, 166, 255, 0.6);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    
+    .particle:nth-child(2n) {
+      background: rgba(124, 58, 237, 0.4);
+      animation-duration: 25s;
+      animation-delay: -5s;
+    }
+    
+    .particle:nth-child(3n) {
+      background: rgba(245, 158, 11, 0.3);
+      animation-duration: 30s;
+      animation-delay: -10s;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      background-image: radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, #172554 0%, transparent 50%);
+      color: var(--text-color);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      animation: fadeIn 2s ease-in;
+      line-height: 1.6;
       position: relative;
-      cursor: pointer;
-      background: radial-gradient(circle at 30% 30%, #FFD700 0%, #FFA500 20%, #FF8C00 40%, #D2691E 100%);
-      box-shadow: 
-        0 0 0 12px #8B4513,
-        0 0 0 16px #A0522D,
-        0 8px 25px rgba(0, 0, 0, 0.4),
-        inset 0 0 30px rgba(255, 215, 0, 0.3);
-      border: 2px solid #654321;
+      overflow-x: hidden;
     }
     
     .dashboard-container {
@@ -169,103 +217,15 @@
       border-radius: 2px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: flex-end;
     }
     
     .chart-line {
-      position: absolute;
-      bottom: 0;
-      width: 2px;
+      position: relative; /* Changed from absolute */
       background: var(--accent-color);
       transition: height 0.5s ease;
       margin-right: 1px;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-color);
-      background-image: radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
-                        radial-gradient(circle at 75% 75%, #172554 0%, transparent 50%);
-      color: var(--text-color);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      animation: fadeIn 2s ease-in;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
-    }
-    
-    .sparks-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    
-    .spark {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: var(--accent-color);
-      border-radius: 50%;
-      opacity: 0;
-      animation: sparkle 4s infinite ease-in-out;
-      box-shadow: 0 0 6px var(--accent-color);
-    }
-    
-    .spark:nth-child(odd) {
-      background: #7c3aed;
-      box-shadow: 0 0 6px #7c3aed;
-      animation-delay: -2s;
-    }
-    
-    .spark:nth-child(3n) {
-      background: #f59e0b;
-      box-shadow: 0 0 6px #f59e0b;
-      animation-delay: -1s;
-    }
-    
-    .spark:nth-child(4n) {
-      background: #10b981;
-      box-shadow: 0 0 6px #10b981;
-      animation-delay: -3s;
-    }
-    
-    .floating-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: rgba(88, 166, 255, 0.6);
-      border-radius: 50%;
-      animation: float 20s infinite linear;
-    }
-    
-    .particle:nth-child(2n) {
-      background: rgba(124, 58, 237, 0.4);
-      animation-duration: 25s;
-      animation-delay: -5s;
-    }
-    
-    .particle:nth-child(3n) {
-      background: rgba(245, 158, 11, 0.3);
-      animation-duration: 30s;
-      animation-delay: -10s;
     }
     
     header {
@@ -517,7 +477,7 @@
       margin-top: auto;
       padding: 40px 20px 20px;
       font-size: 0.9em;
-      color: #666;
+      color: #8d96a0; /* Slightly brighter for better contrast */
       text-align: center;
       border-top: 1px solid rgba(88, 166, 255, 0.1);
       width: 100%;
@@ -525,7 +485,6 @@
       position: relative;
     }
     
-    /* Hover effects for interactive elements */
     .interactive-hover {
       transition: all 0.3s ease;
     }
@@ -581,20 +540,10 @@
     }
     
     @keyframes float {
-      0% {
-        transform: translateY(100vh) translateX(0px) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100px) translateX(100px) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) translateX(var(--x-start)) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(var(--x-end)) rotate(720deg); opacity: 0; }
     }
     
     @media (max-width: 768px) {
@@ -604,36 +553,10 @@
       .projects-grid { grid-template-columns: 1fr; }
       
       .dashboard-container {
-        width: 140px;
-        top: 10px;
-        right: 10px;
-        padding: 6px;
+        display: none; /* Hide complex dashboard on small screens */
       }
       
-      .dashboard-header {
-        font-size: 8px;
-        margin-bottom: 5px;
-      }
-      
-      .metric-row {
-        margin-bottom: 3px;
-        padding: 2px 3px;
-      }
-      
-      .metric-label, .metric-value {
-        font-size: 7px;
-      }
-      
-      .progress-bar {
-        width: 25px;
-        height: 2px;
-      }
-      
-      .mini-chart {
-        width: 30px;
-        height: 8px;
-      }
-      
+      /* Disable custom cursor on touch devices for better usability */
       .custom-cursor, .mouse-highlight {
         display: none;
       }
@@ -651,9 +574,6 @@
   <div class="sparks-container" id="sparksContainer"></div>
   <div class="floating-particles" id="particlesContainer"></div>
   
-  <!-- Real-time Dashboard -->
-  <!-- TODO: Connect to real monitoring system - Replace static values with API calls -->
-  <!-- Integration points: Docker API, Kubernetes metrics, AWS CloudWatch, CI/CD webhooks -->
   <div class="dashboard-container">
     <div class="dashboard-header">⚡ DevOps Metrics Dashboard</div>
     <div class="metric-row">
@@ -693,7 +613,6 @@
     <div class="profile-image">🤖</div>
     <h1>Ben-levi</h1>
     <p class="tagline">AI Enthusiast • Electrical Engineer • Tech Innovator</p>
-    <!-- EDIT SOCIAL LINKS: Update these URLs with your actual social media profiles -->
     <div class="social-links">
       <a href="https://github.com/Ben-levi" target="_blank" class="social-link interactive-hover">GitHub</a>
       <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link interactive-hover">LinkedIn</a>
@@ -805,3 +724,107 @@
   <div class="card">
     <h2>🏆 GitHub Trophies</h2>
     <div style="text-align: center; margin: 20px 0;">
+       <img src="https://github-profile-trophy.vercel.app/?username=Ben-levi&theme=darkhub&no-frame=true&no-bg=true&margin-w=4" alt="GitHub Trophies" style="max-width: 100%; height: auto;" class="interactive-hover">
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; <span id="currentYear"></span> Ben-levi. All Rights Reserved.</p>
+    <p>Built with ❤️ and a lot of ☕</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const customCursor = document.getElementById("customCursor");
+      const mouseHighlight = document.getElementById("mouseHighlight");
+      const sparksContainer = document.getElementById("sparksContainer");
+      const particlesContainer = document.getElementById("particlesContainer");
+      const k8sChart = document.getElementById('k8sChart');
+      const awsChart = document.getElementById('awsChart');
+  
+      // --- 1. Custom Cursor Movement ---
+      // Only run on non-touch devices
+      if (!window.matchMedia("(pointer: coarse)").matches) {
+        document.addEventListener("mousemove", function(e) {
+          const { clientX, clientY } = e;
+          // Using requestAnimationFrame for smoother performance
+          requestAnimationFrame(() => {
+            customCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
+            mouseHighlight.style.transform = `translate(${clientX}px, ${clientY}px) scale(1)`;
+          });
+        });
+    
+        // Add hover effects to cursor
+        document.querySelectorAll('a, button, .interactive-hover, .skill-tag, .project-card, .social-link').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+              customCursor.style.transform += ' scale(2.5)';
+              mouseHighlight.style.transform += ' scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+              // We need to get the current translate values to reset scale correctly
+              const transform = customCursor.style.transform.match(/translate\(([^)]+)\)/);
+              if (transform) {
+                customCursor.style.transform = transform[0];
+                mouseHighlight.style.transform = `${transform[0]} scale(1)`;
+              }
+            });
+        });
+      }
+  
+      // --- 2. Background Sparks ---
+      const sparkCount = 40;
+      for (let i = 0; i < sparkCount; i++) {
+          let spark = document.createElement("div");
+          spark.className = "spark";
+          spark.style.left = `${Math.random() * 100}%`;
+          spark.style.top = `${Math.random() * 100}%`;
+          spark.style.animationDelay = `${Math.random() * 4}s`;
+          sparksContainer.appendChild(spark);
+      }
+  
+      // --- 3. Floating Particles ---
+      const particleCount = 30;
+      for (let i = 0; i < particleCount; i++) {
+          let particle = document.createElement("div");
+          particle.className = "particle";
+          const xStart = `${Math.random() * 100}%`;
+          const xEnd = `${Math.random() * 100}%`;
+          particle.style.setProperty('--x-start', xStart);
+          particle.style.setProperty('--x-end', xEnd);
+          particle.style.left = xStart;
+          particle.style.animationDelay = `${Math.random() * -30}s`;
+          particlesContainer.appendChild(particle);
+      }
+      
+      // --- 4. Mini Dashboard Charts ---
+      function generateMiniChart(container, bars = 10) {
+        if (!container) return; // Guard against null element
+        container.innerHTML = '';
+        for (let i = 0; i < bars; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'chart-line';
+            bar.style.width = `calc(${100/bars}% - 1px)`;
+            // Set height with a slight delay for a nicer animation effect
+            setTimeout(() => {
+              bar.style.height = `${Math.random() * 80 + 10}%`;
+            }, i * 20);
+            container.appendChild(bar);
+        }
+      }
+  
+      generateMiniChart(k8sChart);
+      generateMiniChart(awsChart);
+      setInterval(() => {
+          generateMiniChart(k8sChart);
+          generateMiniChart(awsChart);
+      }, 3000);
+
+      // --- 5. Dynamic Footer Year ---
+      const yearSpan = document.getElementById("currentYear");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    });
+  </script>
+</body>
+</html>
