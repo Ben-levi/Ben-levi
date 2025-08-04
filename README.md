@@ -1,11 +1,4 @@
-## Hi there 👋
-
-<!--
-**Ben-levi/Ben-levi** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...# 💫 About Me:
+# 💫 About Me:
 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.<br><br>💡 Electrifying guy: I'm an Electrical Engineer with a zest for innovation, passionate about pushing the boundaries of what's possible with technology.<br><br>👀 I'm interested in AI, tech in general, and Internet of Things (IoT)<br><br>🌱 I'm currently learning advanced neural networks, Python, and IoT systems<br><br>💞️ I'm looking to collaborate on AI-driven projects, IoT innovations, and tech community initiatives
 
 
@@ -26,11 +19,3 @@ A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutio
 [![](https://visitcount.itsvg.in/api?id=ben-levi&icon=0&color=0)](https://visitcount.itsvg.in)
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
