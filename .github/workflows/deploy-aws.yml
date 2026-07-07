@@ -1,0 +1,62 @@
+name: Deploy — AWS (S3 + CloudFront + Lambdas)
+
+# Keyless deploy: this job assumes an IAM role via GitHub OIDC.
+# It only runs when the AWS backend has been provisioned, i.e. the
+# repo has the secrets below (created from `terraform output`):
+#   AWS_DEPLOY_ROLE_ARN     — deploy_role_arn output
+#   AWS_REGION              — e.g. eu-central-1
+#   SITE_BUCKET             — site_bucket output
+#   CLOUDFRONT_DIST_ID      — cloudfront_distribution_id output
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # OIDC token for AWS
+  contents: read
+
+concurrency:
+  group: deploy-aws
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ vars.AWS_DEPLOY_ENABLED == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC — no stored keys)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync static site to S3
+        run: |
+          aws s3 sync . "s3://${{ secrets.SITE_BUCKET }}" \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "backend/*" \
+            --exclude "infra/*" \
+            --exclude "docs/*" \
+            --exclude "README.md" \
+            --cache-control "public, max-age=300"
+
+      - name: Package & update Lambda code
+        run: |
+          mkdir -p /tmp/pkg
+          # chat ships with its knowledge base
+          cp backend/chat/handler.py data/ben.md /tmp/pkg/ && (cd /tmp/pkg && zip -q chat.zip handler.py ben.md)
+          aws lambda update-function-code --function-name ben-portfolio-chat --zip-file fileb:///tmp/pkg/chat.zip
+          (cd backend/news   && zip -qj /tmp/pkg/news.zip   handler.py) && aws lambda update-function-code --function-name ben-portfolio-news   --zip-file fileb:///tmp/pkg/news.zip
+          (cd backend/status && zip -qj /tmp/pkg/status.zip handler.py) && aws lambda update-function-code --function-name ben-portfolio-status --zip-file fileb:///tmp/pkg/status.zip
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.CLOUDFRONT_DIST_ID }}" \
+            --paths "/*"

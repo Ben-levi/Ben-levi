@@ -3,793 +3,352 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ben-levi - Personal Page</title>
-  <style>
-    :root {
-      --bg-color: #0d1117;
-      --text-color: #c9d1d9;
-      --accent-color: #58a6ff;
-      --card-color: #161b22;
-      --hover-color: #21262d;
-      --gradient: linear-gradient(135deg, #58a6ff, #7c3aed);
-    }
-    
-    * {
-      box-sizing: border-box;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-color);
-      background-image: radial-gradient(circle at 25% 25%, #1e293b 0%, transparent 50%),
-                        radial-gradient(circle at 75% 75%, #172554 0%, transparent 50%);
-      color: var(--text-color);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      animation: fadeIn 2s ease-in;
-      line-height: 1.6;
-      position: relative;
-      cursor: none;
-    }
-    
-    .custom-cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 16px;
-      height: 16px;
-      background: radial-gradient(circle, rgba(88, 166, 255, 0.9), rgba(124, 58, 237, 0.6));
-      border: 1px solid rgba(88, 166, 255, 0.8);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 12px rgba(88, 166, 255, 0.7);
-      transform: translate(-50%, -50%); 
-      transition: transform 0.2s ease-out;
-    }
-    
-    .mouse-highlight {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
-    
-    body:hover .mouse-highlight {
-      opacity: 1;
-    }
-    
-    .custom-cursor.hover {
-        transform: translate(-50%, -50%) scale(2.5);
-    }
-    .mouse-highlight.hover {
-        transform: translate(-50%, -50%) scale(1.5);
-    }
-
-    .sparks-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    
-    .spark {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: var(--accent-color);
-      border-radius: 50%;
-      opacity: 0;
-      animation: sparkle 4s infinite ease-in-out;
-      box-shadow: 0 0 6px var(--accent-color);
-    }
-    
-    .spark:nth-child(odd) {
-      background: #7c3aed;
-      box-shadow: 0 0 6px #7c3aed;
-      animation-delay: -2s;
-    }
-    
-    .spark:nth-child(3n) {
-      background: #f59e0b;
-      box-shadow: 0 0 6px #f59e0b;
-      animation-delay: -1s;
-    }
-    
-    .spark:nth-child(4n) {
-      background: #10b981;
-      box-shadow: 0 0 6px #10b981;
-      animation-delay: -3s;
-    }
-    
-    .floating-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    
-    .particle {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: rgba(88, 166, 255, 0.6);
-      border-radius: 50%;
-      animation: float 20s infinite linear;
-    }
-    
-    .particle:nth-child(2n) {
-      background: rgba(124, 58, 237, 0.4);
-      animation-duration: 25s;
-      animation-delay: -5s;
-    }
-    
-    .particle:nth-child(3n) {
-      background: rgba(245, 158, 11, 0.3);
-      animation-duration: 30s;
-      animation-delay: -10s;
-    }
-    
-    .dashboard-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 220px;
-      background: rgba(22, 27, 34, 0.95);
-      border-radius: 8px;
-      border: 1px solid rgba(88, 166, 255, 0.3);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      padding: 12px;
-      transition: all 0.3s ease;
-    }
-    
-    .dashboard-header {
-      color: var(--accent-color);
-      font-size: 11px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      padding: 4px 6px;
-      background: rgba(33, 38, 45, 0.5);
-      border-radius: 4px;
-      border-left: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
-    
-    .metric-row:hover {
-      background: rgba(33, 38, 45, 0.8);
-      border-left-color: var(--accent-color);
-    }
-    
-    .metric-label {
-      font-size: 9px;
-      color: var(--text-color);
-    }
-    
-    .metric-value {
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--accent-color);
-    }
-    
-    .progress-bar {
-      width: 40px;
-      height: 3px;
-      background: rgba(88, 166, 255, 0.2);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-color), #7c3aed);
-      transition: width 2s ease;
-      border-radius: 2px;
-    }
-    
-    .mini-chart {
-      width: 50px;
-      height: 15px;
-      background: rgba(88, 166, 255, 0.1);
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-    }
-    
-    .chart-line {
-      position: relative;
-      background: var(--accent-color);
-      transition: height 0.5s ease;
-      margin-right: 1px;
-    }
-    
-    header {
-      text-align: center;
-      margin: 50px 0 30px;
-      position: relative;
-      z-index: 10;
-    }
-    
-    .profile-image {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: var(--gradient);
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      animation: pulse 2s infinite;
-      box-shadow: 0 0 30px rgba(88, 166, 255, 0.3);
-      transition: all 0.3s ease;
-    }
-    
-    .profile-image:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 50px rgba(88, 166, 255, 0.6);
-    }
-    
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-    
-    .tagline {
-      font-size: 1.2em;
-      color: #8b949e;
-      margin-bottom: 20px;
-    }
-    
-    .social-links {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    
-    .social-link {
-      padding: 8px 16px;
-      background: var(--card-color);
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .social-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .social-link:hover::before {
-      left: 100%;
-    }
-    
-    .social-link:hover {
-      background: var(--hover-color);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
-      border-color: var(--accent-color);
-    }
-    
-    .card {
-      background: var(--card-color);
-      background-image: linear-gradient(145deg, var(--card-color), #1a1f26);
-      padding: 30px;
-      margin: 20px;
-      width: 90%;
-      max-width: 700px;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(88, 166, 255, 0.1);
-      animation: slideUp 1.5s ease-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      z-index: 10;
-    }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 2px;
-      background: var(--gradient);
-      transition: left 0.5s ease;
-    }
-    
-    .card:hover::before {
-      left: 0;
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-      border-color: rgba(88, 166, 255, 0.3);
-    }
-    
-    .card h2 {
-      color: var(--accent-color);
-      margin-bottom: 20px;
-      font-size: 1.8em;
-    }
-    
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    
-    .skill-tag {
-      background: rgba(88, 166, 255, 0.1);
-      color: var(--accent-color);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.9em;
-      border: 1px solid rgba(88, 166, 255, 0.3);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .skill-tag:hover {
-      background: rgba(88, 166, 255, 0.2);
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-    
-    .project-card {
-      background: rgba(33, 38, 45, 0.8);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(88, 166, 255, 0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .project-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), rgba(124, 58, 237, 0.05));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .project-card:hover::after {
-      opacity: 1;
-    }
-    
-    .project-card:hover {
-      border-color: var(--accent-color);
-      transform: scale(1.02);
-      box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2);
-    }
-    
-    .project-title {
-      color: var(--accent-color);
-      font-weight: 600;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .cta-button {
-      display: inline-block;
-      background: var(--gradient);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .cta-button:hover::before {
-      left: 100%;
-    }
-    
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(88, 166, 255, 0.4);
-      text-decoration: none;
-    }
-    
-    a {
-      color: var(--accent-color);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    
-    a:hover {
-      color: #79c0ff;
-      text-decoration: underline;
-    }
-
-    .stats-container {
-        overflow: hidden;
-        border-radius: 8px;
-        text-align: center;
-        margin: 20px 0;
-    }
-    .stats-container img {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 15px;
-    }
-    
-    footer {
-      margin-top: auto;
-      padding: 40px 20px 20px;
-      font-size: 0.9em;
-      color: #8d96a0;
-      text-align: center;
-      border-top: 1px solid rgba(88, 166, 255, 0.1);
-      width: 100%;
-      z-index: 10;
-      position: relative;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 5px rgba(88, 166, 255, 0.5)); }
-      to { filter: drop-shadow(0 0 20px rgba(88, 166, 255, 0.8)); }
-    }
-    
-    @keyframes sparkle {
-      0% { opacity: 0; transform: translateY(0) scale(0); }
-      10% { opacity: 1; transform: translateY(-10px) scale(1); }
-      20% { opacity: 1; transform: translateY(-20px) scale(1.2); }
-      100% { opacity: 0; transform: translateY(-100px) scale(0); }
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(100vh) translateX(var(--x-start)) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-10vh) translateX(var(--x-end)) rotate(720deg); opacity: 0; }
-    }
-    
-    @media (max-width: 768px) {
-      h1 { font-size: 2.5em; }
-      .card { margin: 15px; padding: 20px; }
-      .social-links { flex-wrap: wrap; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .dashboard-container { display: none; }
-      
-      .custom-cursor, .mouse-highlight {
-        display: none;
-      }
-      
-      body {
-        cursor: auto;
-      }
-    }
-  </style>
+  <title>Ben Levi — DevOps & AI Engineer</title>
+  <meta name="description" content="Ben Levi — DevOps & AI engineer. This portfolio is its own production system: Terraform-managed AWS serverless infra, live telemetry, an LLM assistant, and a streaming news pipeline." />
+  <meta property="og:title" content="Ben Levi — DevOps & AI Engineer" />
+  <meta property="og:description" content="A portfolio that runs itself: live infra telemetry, LLM chat, CI/CD via OIDC, all on AWS free tier." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
-  <div class="custom-cursor" id="customCursor"></div>
-  <div class="mouse-highlight" id="mouseHighlight"></div>
-  
-  <div class="sparks-container" id="sparksContainer"></div>
-  <div class="floating-particles" id="particlesContainer"></div>
-  
-  <div class="dashboard-container">
-    <div class="dashboard-header">⚡ DevOps Metrics Dashboard</div>
-    <div class="metric-row">
-      <span class="metric-label">Docker Uptime</span>
-      <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
-      <span class="metric-value">95%</span>
+  <canvas id="net-bg" aria-hidden="true"></canvas>
+
+  <nav class="topnav">
+    <div class="wrap">
+      <div class="brand"><span class="prompt">ben@prod:~$</span> whoami<span class="cursor-blink">▌</span></div>
+      <div class="navlinks">
+        <a href="#ops">Live Ops</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#news">News</a>
+        <a href="#videos">Videos</a>
+      </div>
+      <span class="status-pill"><span class="dot"></span> site: live</span>
     </div>
-    <div class="metric-row">
-      <span class="metric-label">K8s Clusters</span>
-      <div class="mini-chart" id="k8sChart"></div>
-      <span class="metric-value">3 Active</span>
-    </div>
-    <div class="metric-row">
-      <span class="metric-label">CI/CD Pipeline</span>
-      <div class="progress-bar"><div class="progress-fill" style="width: 87%"></div></div>
-      <span class="metric-value">87%</span>
-    </div>
-    <div class="metric-row">
-      <span class="metric-label">AWS Load</span>
-      <div class="mini-chart" id="awsChart"></div>
-      <span class="metric-value">42%</span>
-    </div>
-    <div class="metric-row">
-      <span class="metric-label">Monitoring</span>
-      <div class="progress-bar"><div class="progress-fill" style="width: 98%"></div></div>
-      <span class="metric-value">98%</span>
-    </div>
-  </div>
-  
-  <header>
-    <div class="profile-image">🤖</div>
-    <h1>Ben-levi</h1>
-    <p class="tagline">AI Enthusiast • Electrical Engineer • Tech Innovator</p>
-    <div class="social-links">
-      <a href="https://github.com/Ben-levi" target="_blank" class="social-link">GitHub</a>
-      <a href="https://linkedin.com/in/ben-levi" target="_blank" class="social-link">LinkedIn</a>
-      <a href="mailto:philepin@gmail.com" class="social-link">Email</a>
-      <a href="https://twitter.com/ben_levi" target="_blank" class="social-link">Twitter</a>
+  </nav>
+
+  <header class="wrap">
+    <div class="hero">
+      <div>
+        <div class="kicker">// DevOps · Cloud · AI</div>
+        <h1>I build infrastructure that <span class="grad">explains itself.</span></h1>
+        <p class="lede">
+          I'm <strong>Ben Levi</strong> — an Electrical Engineer turned DevOps &amp; AI engineer.
+          This site isn't a brochure: it's a running production system. Real pipelines,
+          real telemetry, real serverless AWS infra managed by Terraform — and an LLM
+          assistant that answers questions about me. Everything you see here, I built and operate.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">▸ View live projects</a>
+          <button class="btn btn-ghost" id="hero-chat-btn" type="button">🤖 Ask BenBot about me</button>
+          <a class="btn btn-ghost" href="https://github.com/Ben-levi" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="term reveal vis" aria-label="Deployment terminal animation">
+        <div class="term-bar">
+          <span class="tl r"></span><span class="tl y"></span><span class="tl g"></span>
+          <span class="term-title">ben@prod: ~/portfolio — deploy.log</span>
+        </div>
+        <div class="term-body" id="term-body"></div>
+      </div>
     </div>
   </header>
 
-  <div class="card">
-    <h2>👋 Hi there, I'm Ben-levi!</h2>
-    <p>🚀 A tech enthusiast dedicated to leveraging AI and IoT to create impactful solutions and exploring the ever-evolving tech landscape.</p>
-    <p>💡 <strong>Electrifying guy:</strong> I'm an Electrical Engineer with a zest for innovation, passionate about pushing the boundaries of what's possible with technology.</p>
-    <div style="margin: 20px 0;">
-      <p>👀 I'm interested in <strong>AI, tech in general, and Internet of Things (IoT)</strong></p>
-      <p>🌱 I'm currently learning <strong>advanced neural networks, Python, and IoT systems</strong></p>
-      <p>💞️ I'm looking to collaborate on <strong>AI-driven projects, IoT innovations, and tech community initiatives</strong></p>
-      <p>📫 How to reach me: <a href="mailto:philepin@gmail.com">philepin@gmail.com</a></p>
-    </div>
-    <div style="background: rgba(88, 166, 255, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0;">
-      <p><strong>💖 Emoji lover:</strong> 😃🤖⚽️🏠🥋</p>
-      <p><strong>⚡ Fun fact:</strong> I'm a passionate soccer fan ⚽️, a devoted family guy 🏠, and I love MMA! 🥋</p>
-    </div>
-    <div class="skills">
-      <span class="skill-tag">🤖 AI/ML</span>
-      <span class="skill-tag">🐍 Python</span>
-      <span class="skill-tag">🌐 IoT</span>
-      <span class="skill-tag">⚡ Electrical Engineering</span>
-      <span class="skill-tag">🧠 Neural Networks</span>
-      <span class="skill-tag">🔧 Hardware</span>
-      <span class="skill-tag">💻 Software</span>
-    </div>
-  </div>
+  <main class="wrap">
 
-  <div class="card">
-    <h2>💻 Tech Stack</h2>
-    <div class="tech-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🤖 AI/ML</h4>
-        <div class="skills">
-          <span class="skill-tag">TensorFlow</span>
-          <span class="skill-tag">PyTorch</span>
-          <span class="skill-tag">Scikit-learn</span>
-          <span class="skill-tag">OpenCV</span>
+    <!-- ============ LIVE OPS ============ -->
+    <section id="ops">
+      <div class="sec-head reveal">
+        <div class="num">01 · live telemetry</div>
+        <h2>This site monitors itself</h2>
+        <p>No fake dashboards. Every number below is fetched live — from the GitHub API, your own browser, and (once the AWS backend is up) Cost Explorer and CloudWatch. The infrastructure is the résumé.</p>
+      </div>
+      <div class="ops-grid reveal">
+        <div class="ops-card panel">
+          <div class="label"><span class="dot"></span> last deploy</div>
+          <div class="value" id="ops-deploy">…</div>
+          <div class="sub" id="ops-deploy-sub">GitHub Actions</div>
+        </div>
+        <div class="ops-card panel">
+          <div class="label">pipeline</div>
+          <div class="value" id="ops-pipeline">…</div>
+          <div class="sub">latest workflow conclusion</div>
+        </div>
+        <div class="ops-card panel">
+          <div class="label">commits · 30d</div>
+          <div class="value" id="ops-commits">…</div>
+          <div class="sub">this repository</div>
+        </div>
+        <div class="ops-card panel">
+          <div class="label">your page load</div>
+          <div class="value ok" id="ops-perf">…</div>
+          <div class="sub">measured in your browser just now</div>
+        </div>
+        <div class="ops-card panel">
+          <div class="label">infra cost · MTD</div>
+          <div class="value" id="ops-cost">…</div>
+          <div class="sub" id="ops-cost-sub">AWS Cost Explorer</div>
         </div>
       </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🐍 Languages</h4>
-        <div class="skills">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">C++</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">MATLAB</span>
+      <div class="panel runs-list reveal" id="runs-list" aria-label="Recent pipeline runs">
+        <div class="run-row"><span class="rmeta">loading real pipeline history…</span></div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <div class="sec-head reveal">
+        <div class="num">02 · about</div>
+        <h2>Engineer first, tool-agnostic always</h2>
+        <p>Electrical Engineering taught me how systems really fail; DevOps taught me how to make them recover on their own. I care about boring reliability, honest metrics, and automating myself out of repetitive work — then using AI to automate the automation.</p>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skill-col panel">
+          <h3>☁️ cloud &amp; infra</h3>
+          <div class="tags">
+            <span class="tag">AWS</span><span class="tag">Lambda</span><span class="tag">S3 + CloudFront</span>
+            <span class="tag">EC2</span><span class="tag">Terraform</span><span class="tag">Linode</span>
+            <span class="tag">Nginx</span><span class="tag">Apache</span>
+          </div>
+        </div>
+        <div class="skill-col panel">
+          <h3>🔁 ci/cd &amp; containers</h3>
+          <div class="tags">
+            <span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span><span class="tag">GitOps</span><span class="tag">OIDC deploys</span>
+          </div>
+        </div>
+        <div class="skill-col panel">
+          <h3>🤖 ai &amp; data</h3>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Claude API</span><span class="tag">RAG</span>
+            <span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">MongoDB</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+        <div class="skill-col panel">
+          <h3>⚡ hardware &amp; iot</h3>
+          <div class="tags">
+            <span class="tag">Electrical Eng.</span><span class="tag">ESP32</span><span class="tag">Raspberry Pi</span>
+            <span class="tag">MQTT</span><span class="tag">Signal Processing</span><span class="tag">PCB Design</span>
+          </div>
         </div>
       </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">🌐 IoT & Hardware</h4>
-        <div class="skills">
-          <span class="skill-tag">Arduino</span>
-          <span class="skill-tag">Raspberry Pi</span>
-          <span class="skill-tag">ESP32</span>
-          <span class="skill-tag">MQTT</span>
-        </div>
-      </div>
-      <div class="tech-category">
-        <h4 style="color: var(--accent-color); margin-bottom: 10px;">⚡ Engineering</h4>
-        <div class="skills">
-          <span class="skill-tag">Circuit Design</span>
-          <span class="skill-tag">PCB Design</span>
-          <span class="skill-tag">Signal Processing</span>
-          <span class="skill-tag">Power Systems</span>
-        </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="card">
-    <h2>🚀 Featured Projects</h2>
-    <div class="projects-grid">
-    <a href="https://github.com/Ben-levi/AWS_APP.git" target="_blank" rel="noopener noreferrer" class="project-card block">
-        <div class="project-title">🤖 To do App </div>
-        <p>Built a cloud-native task management app to simulate a real-world production .</p>
-    </a>
-    <div class="project-card">
-      <a href="https://github.com/Ben-levi/Ben-levi" target="_blank" rel="noopener noreferrer" class="project-card block">
-        <div class="project-title">🧠 Personal Web</div>
-        <p>Personal branding platform to showcase projects.</p>
-        </a>
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <div class="sec-head reveal">
+        <div class="num">03 · projects</div>
+        <h2>Live from GitHub — never stale</h2>
+        <p>This grid is rendered from the GitHub API on every page view. If I push code today, you'll see it here today. No manually curated screenshots pretending to be recent.</p>
       </div>
-      <div class="project-card">
-        <div class="project-title">⚡ Smart Circuit Designer</div>
-        <p>An innovative tool that uses AI to assist electrical engineers in circuit design and optimization.</p>
+      <div class="proj-grid reveal" id="proj-grid">
+        <div class="proj-card panel"><h3><span class="folder">▸</span> loading…</h3><p>fetching live repository data from api.github.com</p></div>
       </div>
-    </div>
-    <a href="https://github.com/Ben-levi" target="_blank" class="cta-button">View All Projects</a>
-  </div>
+    </section>
 
-  <div class="card">
-    <h2>📊 GitHub Stats</h2>
-    <div class="stats-container">
-      <img src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats">
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Ben-levi&theme=dark&hide_border=true" alt="GitHub Streak">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages">
-    </div>
-  </div>
+    <!-- ============ ARCHITECTURE ============ -->
+    <section id="architecture">
+      <div class="sec-head reveal">
+        <div class="num">04 · architecture</div>
+        <h2>How this site works</h2>
+        <p>The whole platform fits in the AWS free tier and deploys from a single <code>git push</code>. GitHub Actions assumes an AWS role via OIDC — no long-lived keys exist anywhere.</p>
+      </div>
+      <div class="panel arch-wrap reveal">
+        <svg class="arch-svg" viewBox="0 0 960 420" role="img" aria-label="Architecture diagram: GitHub Actions deploys via OIDC to S3 and Lambda; CloudFront serves visitors; Lambdas power chat, news and status APIs.">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#22d3ee"/>
+            </marker>
+          </defs>
+          <style>
+            .bx { fill:#0b1018; stroke:rgba(148,163,184,.35); rx:10; }
+            .bx-hl { stroke:#22d3ee; }
+            .lb { fill:#d7dee9; font: 600 13px monospace; }
+            .lb2 { fill:#8b98ab; font: 11px monospace; }
+            .ln { stroke:#22d3ee; stroke-width:1.5; fill:none; marker-end:url(#arr); opacity:.8; }
+            .lt { fill:#22d3ee; font: 10.5px monospace; }
+          </style>
+          <!-- dev side -->
+          <rect class="bx" x="20" y="40" width="150" height="58" rx="10"/>
+          <text class="lb" x="45" y="65">git push</text>
+          <text class="lb2" x="35" y="84">Ben-levi/Ben-levi</text>
 
-  <div class="card">
-    <h2>🏆 GitHub Trophies</h2>
-    <div class="stats-container">
-       <img src="https://github-profile-trophy.vercel.app/?username=Ben-levi&theme=darkhub&no-frame=true&no-bg=true&margin-w=4" alt="GitHub Trophies">
-    </div>
-  </div>
+          <rect class="bx bx-hl" x="230" y="40" width="180" height="58" rx="10"/>
+          <text class="lb" x="250" y="65">GitHub Actions</text>
+          <text class="lb2" x="250" y="84">CI · OIDC → AWS role</text>
+
+          <path class="ln" d="M170 69 H 226"/>
+
+          <!-- static path -->
+          <rect class="bx" x="480" y="20" width="150" height="52" rx="10"/>
+          <text class="lb" x="520" y="43">S3 bucket</text>
+          <text class="lb2" x="500" y="61">static site + news.json</text>
+          <path class="ln" d="M410 55 L 476 42"/>
+          <text class="lt" x="415" y="38">sync site</text>
+
+          <rect class="bx bx-hl" x="700" y="20" width="150" height="52" rx="10"/>
+          <text class="lb" x="723" y="43">CloudFront</text>
+          <text class="lb2" x="713" y="61">edge cache · HTTPS</text>
+          <path class="ln" d="M630 46 H 696"/>
+
+          <rect class="bx" x="700" y="110" width="150" height="52" rx="10"/>
+          <text class="lb" x="738" y="133">Visitor</text>
+          <text class="lb2" x="714" y="151">you, right now 👋</text>
+          <path class="ln" d="M775 72 V 106"/>
+
+          <!-- lambdas -->
+          <rect class="bx bx-hl" x="230" y="180" width="180" height="58" rx="10"/>
+          <text class="lb" x="250" y="205">λ chat API</text>
+          <text class="lb2" x="250" y="224">Claude + data/ben.md</text>
+          <path class="ln" d="M320 102 V 176"/>
+          <text class="lt" x="328" y="145">deploy λ</text>
+
+          <rect class="bx" x="480" y="180" width="150" height="58" rx="10"/>
+          <text class="lb" x="500" y="205">Claude API</text>
+          <text class="lb2" x="500" y="224">claude-haiku</text>
+          <path class="ln" d="M410 209 H 476"/>
+
+          <rect class="bx" x="20" y="180" width="150" height="58" rx="10"/>
+          <text class="lb" x="42" y="205">DynamoDB</text>
+          <text class="lb2" x="42" y="224">per-IP rate limit</text>
+          <path class="ln" d="M226 209 H 174"/>
+
+          <!-- news pipeline -->
+          <rect class="bx" x="20" y="300" width="150" height="58" rx="10"/>
+          <text class="lb" x="38" y="325">EventBridge</text>
+          <text class="lb2" x="38" y="344">cron: hourly</text>
+
+          <rect class="bx bx-hl" x="230" y="300" width="180" height="58" rx="10"/>
+          <text class="lb" x="250" y="325">λ news pipeline</text>
+          <text class="lb2" x="250" y="344">RSS + HN → news.json</text>
+          <path class="ln" d="M170 329 H 226"/>
+          <path class="ln" d="M410 329 C 460 329 480 300 500 76"/>
+
+          <!-- status -->
+          <rect class="bx bx-hl" x="480" y="300" width="180" height="58" rx="10"/>
+          <text class="lb" x="500" y="325">λ status API</text>
+          <text class="lb2" x="500" y="344">Cost Explorer · CW</text>
+
+          <!-- visitor calls -->
+          <path class="ln" d="M760 162 C 700 260 480 240 414 214"/>
+          <text class="lt" x="620" y="250">POST /chat</text>
+          <path class="ln" d="M775 162 C 760 260 700 310 664 326"/>
+          <text class="lt" x="712" y="290">GET /status</text>
+        </svg>
+        <p class="arch-note">
+          Everything is defined in <a href="https://github.com/Ben-levi/Ben-levi/tree/main/infra/terraform" target="_blank" rel="noopener">Terraform</a> and deployed by
+          <a href="https://github.com/Ben-levi/Ben-levi/tree/main/.github/workflows" target="_blank" rel="noopener">GitHub Actions</a>.
+          Monthly cost target: <strong>&lt; $1</strong> (free tier + a few cents of LLM tokens). An AWS Budget alarm emails me before it can ever exceed $5 — cost is an SLO here.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ NEWS ============ -->
+    <section id="news">
+      <div class="sec-head reveal">
+        <div class="num">05 · streaming</div>
+        <h2>What the industry is reading — right now</h2>
+        <p>A live feed of DevOps / cloud / AI engineering news, <span id="news-mode">aggregated in your browser from the Hacker News API</span>. When the backend is deployed, an hourly Lambda curates it server-side into <code>news.json</code>.</p>
+      </div>
+      <div class="news-list reveal" id="news-list">
+        <div class="news-item panel"><span class="src">loading</span><span>fetching live feed…</span></div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEOS ============ -->
+    <section id="videos">
+      <div class="sec-head reveal">
+        <div class="num">06 · videos</div>
+        <h2>Walkthroughs &amp; demos</h2>
+        <p>Short, honest screen recordings: architecture decisions, live deployments, failures and fixes. (Thumbnails load lazily — no YouTube trackers until you press play.)</p>
+      </div>
+      <div class="video-grid reveal" id="video-grid"></div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="sec-head reveal">
+        <div class="num">07 · contact</div>
+        <h2>Let's build something that stays up</h2>
+        <p>Open to DevOps / Platform / AI-infrastructure roles and collaborations. The fastest way to know if we're a fit: ask BenBot anything, then email me.</p>
+      </div>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="mailto:philepin@gmail.com">📫 philepin@gmail.com</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/ben-levi" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/Ben-levi" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <p>&copy; <span id="currentYear"></span> Ben-levi. All Rights Reserved.</p>
-    <p>Built with ❤️ and a lot of ☕</p>
+    <div class="wrap">
+      <span>© <span id="year"></span> Ben Levi · built with ❤️ and zero JS frameworks</span>
+      <span class="mono">infra: S3 + CloudFront + Lambda · IaC: Terraform · CI: GitHub Actions (OIDC) · <a href="https://github.com/Ben-levi/Ben-levi" target="_blank" rel="noopener">source ↗</a></span>
+    </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const customCursor = document.getElementById("customCursor");
-      const mouseHighlight = document.getElementById("mouseHighlight");
-      const sparksContainer = document.getElementById("sparksContainer");
-      const particlesContainer = document.getElementById("particlesContainer");
-      const k8sChart = document.getElementById('k8sChart');
-      const awsChart = document.getElementById('awsChart');
-  
-      if (window.matchMedia("(pointer: fine)").matches) {
-        
-        document.addEventListener("mousemove", function(e) {
-          customCursor.style.left = e.clientX + 'px';
-          customCursor.style.top = e.clientY + 'px';
-          mouseHighlight.style.left = e.clientX + 'px';
-          mouseHighlight.style.top = e.clientY + 'px';
-        });
-    
-        const interactiveElements = document.querySelectorAll('a, button, .skill-tag, .project-card, .social-link, .profile-image, .cta-button');
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-              customCursor.classList.add('hover');
-              mouseHighlight.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
-              customCursor.classList.remove('hover');
-              mouseHighlight.classList.remove('hover');
-            });
-        });
-      }
-  
-      const sparkCount = 40;
-      for (let i = 0; i < sparkCount; i++) {
-          let spark = document.createElement("div");
-          spark.className = "spark";
-          spark.style.left = `${Math.random() * 100}%`;
-          spark.style.top = `${Math.random() * 100}%`;
-          spark.style.animationDelay = `${Math.random() * 4}s`;
-          sparksContainer.appendChild(spark);
-      }
-  
-      const particleCount = 30;
-      for (let i = 0; i < particleCount; i++) {
-          let particle = document.createElement("div");
-          particle.className = "particle";
-          const xStart = `${Math.random() * 100}%`;
-          const xEnd = `${Math.random() * 100}%`;
-          particle.style.setProperty('--x-start', xStart);
-          particle.style.setProperty('--x-end', xEnd);
-          particle.style.left = xStart;
-          particle.style.animationDelay = `${Math.random() * -30}s`;
-          particlesContainer.appendChild(particle);
-      }
-      
-      function generateMiniChart(container, bars = 10) {
-        if (!container) return;
-        container.innerHTML = '';
-        for (let i = 0; i < bars; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'chart-line';
-            bar.style.width = `calc(${100/bars}% - 1px)`;
-            setTimeout(() => {
-              bar.style.height = `${Math.random() * 80 + 10}%`;
-            }, i * 20);
-            container.appendChild(bar);
-        }
-      }
-  
-      generateMiniChart(k8sChart);
-      generateMiniChart(awsChart);
-      setInterval(() => {
-          generateMiniChart(k8sChart);
-          generateMiniChart(awsChart);
-      }, 3000);
+  <!-- ============ CHAT WIDGET ============ -->
+  <button class="chat-fab" id="chat-fab" aria-label="Open BenBot chat">🤖</button>
+  <div class="chat-panel panel" id="chat-panel" role="dialog" aria-label="BenBot chat">
+    <div class="chat-head">
+      <div class="bot-av">🤖</div>
+      <div>
+        <div class="bot-name">BenBot</div>
+        <div class="bot-sub" id="chat-mode">…</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="chat-suggest">
+      <button type="button">What's Ben's tech stack?</button>
+      <button type="button">How does this site work?</button>
+      <button type="button">How do I contact Ben?</button>
+    </div>
+    <form class="chat-input-row" id="chat-form">
+      <input id="chat-input" type="text" placeholder="Ask about Ben…" autocomplete="off" maxlength="500" />
+      <button type="submit" id="chat-send">➤</button>
+    </form>
+  </div>
 
-      const yearSpan = document.getElementById("currentYear");
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/terminal.js"></script>
+  <script src="assets/js/live.js"></script>
+  <script src="assets/js/projects.js"></script>
+  <script src="assets/js/news.js"></script>
+  <script src="assets/js/chat.js"></script>
+  <script>
+    // Hero chat button opens the widget; videos render from config.
+    document.getElementById("hero-chat-btn").addEventListener("click", () =>
+      document.getElementById("chat-fab").click());
+
+    (function renderVideos() {
+      const grid = document.getElementById("video-grid");
+      for (const v of window.SITE_CONFIG.videos) {
+        const card = document.createElement("div");
+        card.className = "video-card panel";
+        if (v.id) {
+          card.innerHTML = `
+            <div class="video-thumb" style="background-image:url('https://i.ytimg.com/vi/${v.id}/hqdefault.jpg')" data-vid="${v.id}" role="button" tabindex="0" aria-label="Play video">
+              <div class="play">▶</div>
+            </div>
+            <div class="vtitle">${v.title}</div>`;
+          const thumb = card.querySelector(".video-thumb");
+          const play = () => {
+            thumb.outerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1" title="${v.title}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+          };
+          thumb.addEventListener("click", play);
+          thumb.addEventListener("keydown", (e) => { if (e.key === "Enter") play(); });
+        } else {
+          card.innerHTML = `
+            <div class="video-thumb"><div class="play" style="opacity:.35">▶</div></div>
+            <div class="vtitle">${v.title} <span style="color:var(--text-dim);font-family:var(--mono);font-size:11px">— recording soon</span></div>`;
+        }
+        grid.appendChild(card);
       }
-    });
+    })();
   </script>
 </body>
 </html>
