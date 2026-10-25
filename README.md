@@ -1,71 +1,69 @@
-# Hey, I'm Ben Levi ⚡
+# Ben Levi — DevOps / Cloud Engineer
 
-**DevOps Engineer · Freelance Developer** · Electrical Engineering background · AWS · Terraform · Kubernetes · Python
+Electrical Engineer (B.Sc. 2023) with 11+ years in industrial control and automation, now building and operating cloud-native systems on AWS.
 
-I build infrastructure that explains itself — and this repo is the proof:
-it's not just my profile, it's my **portfolio platform**: a static site with live
-GitHub telemetry today, plus a full serverless AWS design in Terraform ready to apply.
+[![Portfolio](https://img.shields.io/badge/Portfolio-ben--levi.github.io-22d3ee?style=flat-square&logo=githubpages&logoColor=white)](https://ben-levi.github.io/Ben-levi/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ben%20Levi-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ben-levi-442790240/)
+[![Email](https://img.shields.io/badge/Email-philepin%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:philepin@gmail.com)
 
-**🌐 Live site:** [ben-levi.github.io/Ben-levi](https://ben-levi.github.io/Ben-levi/) *(GitHub Pages tier — AWS tier deploys with one `terraform apply`)*
+## About
+
+- **Production mindset from the field** — 2013–2025 in control & instrumentation engineering: calibrating sensors, troubleshooting live control systems, and keeping industrial processes running.
+- **DevOps by training and practice** — TESI DevOps Bootcamp, then hands-on projects across Kubernetes on AWS, CI/CD, infrastructure as code, and monitoring.
+- **Ships end to end** — from a containerised app on EKS to a serverless cost guardrail to a WhatsApp booking assistant running for a real business.
+- **Open to** DevOps / Platform / Cloud engineering roles, and freelance projects.
+
+## Featured projects
+
+| Project | What it does | Stack |
+|---|---|---|
+| **WhatsApp booking assistant** <br><sub>client project · code private</sub> | Hebrew WhatsApp receptionist for an events business: routes inquiries, checks artists' Google Calendars, matches artists, sends reminders. CI, smoke checks, health probes, backups and a runbook. | TypeScript · Node · WhatsApp Cloud API · Google Calendar · Turso · GitHub Actions |
+| **[Family To-Do on AWS EKS](https://github.com/Ben-levi/AWS_APP)** | Flask + MySQL app, containerised and deployed to Kubernetes behind an ELB, with a Jenkins pipeline and Grafana/Prometheus monitoring. | AWS EKS · Kubernetes · Docker · Jenkins · Grafana · Python |
+| **[CostGuardian](https://github.com/Ben-levi/Cost-guardian)** | Scheduled Lambda tracks AWS spend, alerts via SNS with cooldown, and can stop tagged EC2 instances behind dry-run/armed switches. | Lambda · Cost Explorer · DynamoDB · SNS · AWS CDK · OIDC |
+| **[Small Business CRM](https://github.com/Ben-levi/small-business-crm)** | Customers, orders and a protected contact form for small businesses. | Node.js · Vercel · Postgres (Neon) · JWT · Sentry |
+| **[This portfolio](https://ben-levi.github.io/Ben-levi/)** | Static site with live GitHub telemetry, plus a serverless AWS design in Terraform. [How it works →](docs/PORTFOLIO.md) | HTML/CSS/JS · Terraform · GitHub Actions |
+
+## Tech stack
+
+**Cloud & IaC**
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=flat-square&logo=terraform&logoColor=white)
+![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=flat-square&logo=ansible&logoColor=white)
+
+**Containers & CI/CD**
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+
+**Monitoring**
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)
+
+**Languages & data**
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Flask](https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+
+**Industrial**  PLCs · HART · control systems · CAD
+
+## Experience
+
+- **Control & Instrumentation Engineer** · 2024 – 2025 — signal and loop systems, CAD control schematics, instrumentation integration
+- **Control & Automation Practical Engineer** · 2013 – 2024 — industrial sensors, control-system diagnostics, process automation (PLCs, HART)
+
+## Education
+
+- **B.Sc. Electrical Engineering** — Sami Shamoon College of Engineering, 2023 · Communication Systems & Cybersecurity
+- **DevOps Bootcamp** — TESI
+
+## GitHub activity
+
+<img height="150" src="https://github-readme-stats.vercel.app/api?username=Ben-levi&theme=dark&hide_border=true&include_all_commits=true" alt="GitHub stats" />
+<img height="150" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Ben-levi&theme=dark&hide_border=true&layout=compact" alt="Top languages" />
 
 ---
 
-## 🧠 What makes this portfolio different
-
-| Feature | How it works |
-|---|---|
-| 🤖 **BenBot** — LLM chat about me | AWS Lambda + Claude API, grounded strictly in [`data/ben.md`](data/ben.md), per-IP rate-limited via DynamoDB |
-| 📊 **Live Ops panel** — no fake metrics | Real GitHub Actions runs, real commit velocity, real month-to-date AWS cost from Cost Explorer, page-load time measured in *your* browser |
-| 🚀 **Projects that never go stale** | Rendered from the GitHub API on every page view |
-| 📰 **Streaming news feed** | EventBridge → Lambda → curated `news.json` on the CDN (browser falls back to the Hacker News API) |
-| 🔐 **Keyless CI/CD** | GitHub Actions → AWS via OIDC federation — zero stored credentials |
-| 💸 **Cost as an SLO** | Runs in the AWS free tier (~$1–3/mo incl. LLM tokens), budget alarm at $5, spend displayed publicly |
-
-```
-git push ──▶ GitHub Actions ──OIDC──▶ S3 + CloudFront ──▶ you
-                    │                        ▲
-                    └──▶ λ chat (Claude) · λ news (hourly) · λ status (cost)
-```
-
-📐 [Architecture & design decisions](docs/ARCHITECTURE.md) ·
-🚀 [Deployment guide](docs/DEPLOYMENT.md) ·
-💡 [Roadmap: AI+DevOps projects](docs/IDEAS.md)
-
-## 🗂 Repo map
-
-```
-index.html, assets/        zero-framework frontend (progressive enhancement)
-backend/{chat,news,status} zero-dependency Python Lambdas
-infra/terraform/           the entire AWS platform as code
-data/ben.md                BenBot's knowledge base — edit → push → the bot learns
-.github/workflows/         CI checks + keyless AWS deploy + Pages fallback
-docs/                      architecture, deployment, roadmap
-```
-
-## 💻 Tech stack
-
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Terraform](https://img.shields.io/badge/terraform-%23844FBA.svg?style=for-the-badge&logo=terraform&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
-![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
-![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-![Claude](https://img.shields.io/badge/Claude%20API-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
-
-## 📊 GitHub stats
-
-![](https://github-readme-stats.vercel.app/api?username=ben-levi&theme=dark&hide_border=true&include_all_commits=true)
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=ben-levi&theme=dark&hide_border=true&layout=compact)
-
-## 🌐 Reach me
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ben-levi-442790240/)
-[![Email](https://img.shields.io/badge/Email-philepin%40gmail.com-EA4335?logo=gmail&logoColor=white)](mailto:philepin@gmail.com)
-
-…or just **ask BenBot on the site** 🤖 — the fastest way to see if we're a fit.
-
-*⚽ soccer fan · 🥋 MMA · 🏠 family guy · building things that stay up*
+📄 [Download my CV](https://ben-levi.github.io/Ben-levi/assets/Ben-Levi-CV.pdf) · 🌐 [Portfolio](https://ben-levi.github.io/Ben-levi/) · ✉️ [philepin@gmail.com](mailto:philepin@gmail.com)
