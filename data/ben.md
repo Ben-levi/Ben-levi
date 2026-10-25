@@ -21,6 +21,20 @@ everything with CI/CD and Terraform, and integrates LLMs into real
 infrastructure (this portfolio's assistant is his own build). He believes in
 honest metrics, boring reliability, and automating repetitive work.
 
+## Experience
+- 2024–2025 · Control & Instrumentation Engineer: developed and maintained
+  signal and loop systems, designed control schematics with CAD tools,
+  integrated advanced instrumentation systems.
+- 2013–2024 · Control & Automation Practical Engineer: installed, calibrated
+  and maintained industrial sensors, troubleshot control systems, supported
+  process automation improvements (PLCs, HART protocol).
+
+## Education & training
+- B.Sc. Electrical Engineering, Sami Shamoon College of Engineering, 2023.
+  Major: Communication Systems & Cybersecurity. GPA 84/100.
+- TESI DevOps Bootcamp.
+- Self-learning: advanced neural networks, IoT systems.
+
 ## Core skills
 - **Cloud**: AWS (Lambda, S3, CloudFront, EC2, IAM, EventBridge, DynamoDB,
   CloudWatch), Linode
@@ -74,7 +88,8 @@ Ben builds appointment-booking and customer-messaging tools for small
 businesses, plus CI/CD, cloud setup and AWS cost reviews for small teams.
 
 ## Interests
-- AI + infrastructure ("AIOps"), IoT, home automation
+- AI + infrastructure ("AIOps"), IoT, robotics, home automation
+- Based in Israel
 - Soccer ⚽ (passionate fan), MMA 🥋, family time 🏠
 
 ## What Ben is looking for

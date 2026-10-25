@@ -17,7 +17,8 @@
   const history = [];
 
   const OFFLINE_KB = [
-    { k: ["who", "about", "ben", "yourself"], a: "Ben Levi is a DevOps & AI engineer with an Electrical Engineering background. He builds cloud-native systems on AWS — CI/CD pipelines, Kubernetes, Terraform — and loves wiring LLMs into real infrastructure (like me!). Off-duty: soccer ⚽, MMA 🥋, and family time 🏠." },
+    { k: ["who", "about", "yourself", "introduce"], a: "Ben Levi is a DevOps & AI engineer with an Electrical Engineering background. He builds cloud-native systems on AWS — CI/CD pipelines, Kubernetes, Terraform — and loves wiring LLMs into real infrastructure (like me!). Off-duty: soccer ⚽, MMA 🥋, and family time 🏠." },
+    { k: ["experience", "background", "education", "degree", "study", "studied", "career", "cv", "resume", "job"], a: "Ben has a B.Sc. in Electrical Engineering from Sami Shamoon College of Engineering (2023, major in Communication Systems & Cybersecurity, GPA 84) and completed the TESI DevOps Bootcamp. Before DevOps he spent 2013–2024 as a Control & Automation Practical Engineer (industrial sensors, control-system troubleshooting, PLCs, HART) and 2024–2025 as a Control & Instrumentation Engineer (signal and loop systems, CAD schematics). His CV is downloadable on this page." },
     { k: ["skill", "stack", "tech", "tool"], a: "Core stack: AWS (Lambda, S3, CloudFront, EC2), Terraform, Docker, Kubernetes, GitHub Actions, Jenkins, Python, Linux, Nginx, MongoDB/MySQL, and monitoring with CloudWatch/Grafana. On the AI side: LLM APIs (Claude), RAG pipelines, and IoT/edge with ESP32 & MQTT." },
     { k: ["project", "built", "portfolio", "work"], a: "Highlights: (1) a WhatsApp booking assistant for a bridal & event makeup business — TypeScript, WhatsApp Cloud API, Google Calendar, automated reminders; (2) a Family To-Do app on AWS EKS with a Jenkins pipeline and Grafana monitoring; (3) CostGuardian — serverless AWS cost alerts and optional enforcement (Lambda, DynamoDB, SNS, CDK); (4) a Small Business CRM on Vercel + Postgres. Scroll to Case studies for details." },
     { k: ["contact", "email", "hire", "reach", "linkedin"], a: "Reach Ben at philepin@gmail.com, or via GitHub (github.com/Ben-levi) and LinkedIn (linkedin.com/in/ben-levi-442790240). He's open to DevOps / Platform / Cloud engineering roles, and takes freelance projects." },
@@ -74,11 +75,14 @@
     msgs.scrollTop = msgs.scrollHeight;
   }
 
+  document.getElementById("chat-close")?.addEventListener("click", () =>
+    panel.classList.remove("open"));
+
   fab.addEventListener("click", () => {
     panel.classList.toggle("open");
     if (panel.classList.contains("open")) {
       if (!msgs.childElementCount) {
-        addMsg("Hey! I'm BenBot 🤖 — ask me anything about Ben: his skills, projects, or how this site runs itself on AWS.", "bot");
+        addMsg("Hey! I'm BenBot 🤖 — ask me anything about Ben: his experience, skills, projects, or how this site works.", "bot");
       }
       input.focus();
     }

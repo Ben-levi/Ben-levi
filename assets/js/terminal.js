@@ -19,7 +19,11 @@
       if (r.ok) {
         const [c] = await r.json();
         out.sha = c.sha.slice(0, 7);
-        out.msg = c.commit.message.split("\n")[0].slice(0, 60);
+        const [first, ...rest] = c.commit.message.split("\n");
+        const pr = first.match(/^Merge pull request #(\d+)/);
+        // merge commits name the source branch; show the PR title instead
+        out.msg = (pr ? rest.find((l) => l.trim()) || first : first).trim().slice(0, 60);
+        if (pr) out.sha += ` (PR #${pr[1]})`;
         out.when = new Date(c.commit.author.date).toLocaleDateString();
       }
     } catch (_) { /* offline / rate-limited — keep placeholders */ }
