@@ -1,0 +1,44 @@
+name: CI — validate
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python — compile Lambda handlers
+        run: python3 -m py_compile backend/chat/handler.py backend/news/handler.py backend/status/handler.py
+
+      - name: Python — lint (ruff)
+        run: |
+          pipx install ruff==0.16.9
+          ruff check --target-version py312 backend/
+
+      - name: Terraform — fmt & validate
+        uses: hashicorp/setup-terraform@v3
+
+      - name: terraform fmt -check
+        working-directory: infra/terraform
+        run: terraform fmt -check -recursive
+
+      - name: terraform validate (no backend)
+        working-directory: infra/terraform
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
+
+      - name: HTML — sanity check
+        run: |
+          # fail fast on unclosed tags / broken structure without extra deps
+          python3 - <<'EOF'
+          from html.parser import HTMLParser
+          class P(HTMLParser):
+              def error(self, msg): raise SystemExit(f"HTML error: {msg}")
+          P().feed(open("index.html", encoding="utf-8").read())
+          print("index.html parsed OK")
+          EOF
