@@ -26,8 +26,12 @@
   async function loadRuns() {
     const list = $("runs-list");
     try {
-      const data = await gh("/actions/runs?per_page=6");
-      const runs = data.workflow_runs || [];
+      const data = await gh("/actions/runs?per_page=15");
+      // disabled workflows (e.g. the AWS deploy before the backend exists) end as
+      // "skipped" — they say nothing about the health of the site
+      const runs = (data.workflow_runs || [])
+        .filter((r) => r.conclusion !== "skipped" && r.conclusion !== "cancelled")
+        .slice(0, 6);
       if (!runs.length) throw new Error("no runs");
 
       const latest = runs[0];

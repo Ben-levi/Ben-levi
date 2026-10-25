@@ -49,6 +49,7 @@
         </p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#case-studies">▸ Read the case studies</a>
+          <a class="btn btn-ghost" href="assets/Ben-Levi-CV.pdf" download>⬇ Download CV</a>
           <button class="btn btn-ghost" id="hero-chat-btn" type="button">🤖 Ask BenBot about me</button>
           <a class="btn btn-ghost" href="https://github.com/Ben-levi" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
@@ -179,7 +180,7 @@
           <h3>☁️ cloud &amp; infra</h3>
           <div class="tags">
             <span class="tag">AWS</span><span class="tag">Lambda</span><span class="tag">S3 + CloudFront</span>
-            <span class="tag">EC2</span><span class="tag">Terraform</span><span class="tag">Linode</span>
+            <span class="tag">EC2</span><span class="tag">EKS</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Linode</span>
             <span class="tag">Nginx</span><span class="tag">Apache</span>
           </div>
         </div>
@@ -188,6 +189,7 @@
           <div class="tags">
             <span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">Docker</span>
             <span class="tag">Kubernetes</span><span class="tag">GitOps</span><span class="tag">OIDC deploys</span>
+            <span class="tag">Prometheus</span><span class="tag">Grafana</span>
           </div>
         </div>
         <div class="skill-col panel">
@@ -203,7 +205,46 @@
           <div class="tags">
             <span class="tag">Electrical Eng.</span><span class="tag">ESP32</span><span class="tag">Raspberry Pi</span>
             <span class="tag">MQTT</span><span class="tag">Signal Processing</span><span class="tag">PCB Design</span>
+            <span class="tag">PLCs</span><span class="tag">HART</span><span class="tag">CAD</span>
           </div>
+        </div>
+      </div>
+
+      <div class="bio-grid reveal">
+        <div class="panel bio-col">
+          <h3>🧭 experience</h3>
+          <ol class="timeline">
+            <li>
+              <div class="tl-when">2024 – 2025</div>
+              <div class="tl-role">Control &amp; Instrumentation Engineer</div>
+              <ul>
+                <li>Developed and maintained signal and loop systems</li>
+                <li>Designed control schematics with CAD tools</li>
+                <li>Integrated advanced instrumentation systems</li>
+              </ul>
+            </li>
+            <li>
+              <div class="tl-when">2013 – 2024</div>
+              <div class="tl-role">Control &amp; Automation Practical Engineer</div>
+              <ul>
+                <li>Installed, calibrated and maintained industrial sensors</li>
+                <li>Troubleshot control systems and ran diagnostics</li>
+                <li>Supported process automation improvements (PLCs, HART)</li>
+              </ul>
+            </li>
+          </ol>
+          <p class="bio-note">Eleven years keeping industrial control systems running is where my reliability mindset comes from — DevOps is the same job with software.</p>
+        </div>
+        <div class="panel bio-col">
+          <h3>🎓 education &amp; training</h3>
+          <ul class="edu">
+            <li><strong>B.Sc. Electrical Engineering</strong> — Sami Shamoon College of Engineering, 2023<br /><span>Major: Communication Systems &amp; Cybersecurity · GPA 84</span></li>
+            <li><strong>DevOps Bootcamp</strong> — TESI</li>
+            <li><strong>Self-learning</strong><br /><span>Advanced neural networks, IoT systems</span></li>
+          </ul>
+          <h3>🙋 beyond work</h3>
+          <p class="bio-personal">Based in Israel. Into AI, IoT and robotics. Off the keyboard: soccer ⚽, MMA 🥋 and family time 🏠.</p>
+          <a class="btn btn-ghost" href="assets/Ben-Levi-CV.pdf" download>⬇ Download CV</a>
         </div>
       </div>
     </section>
@@ -365,6 +406,7 @@
       </div>
       <div class="hero-cta reveal">
         <a class="btn btn-primary" href="mailto:philepin@gmail.com">📫 philepin@gmail.com</a>
+        <a class="btn btn-ghost" href="assets/Ben-Levi-CV.pdf" download>⬇ Download CV</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/ben-levi-442790240/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn btn-ghost" href="https://github.com/Ben-levi" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
@@ -388,10 +430,12 @@
         <div class="bot-name">BenBot</div>
         <div class="bot-sub" id="chat-mode">…</div>
       </div>
+      <button class="chat-close" id="chat-close" type="button" aria-label="Close chat">✕</button>
     </div>
     <div class="chat-msgs" id="chat-msgs"></div>
     <div class="chat-suggest">
       <button type="button">What's Ben's tech stack?</button>
+      <button type="button">What's Ben's background?</button>
       <button type="button">How does this site work?</button>
       <button type="button">How do I contact Ben?</button>
     </div>
