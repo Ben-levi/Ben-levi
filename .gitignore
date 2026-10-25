@@ -1,0 +1,15 @@
+# Terraform
+infra/terraform/.terraform/
+infra/terraform/.build/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editors
+.DS_Store
+*.swp
