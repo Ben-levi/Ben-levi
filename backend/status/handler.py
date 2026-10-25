@@ -11,7 +11,7 @@ for 6 hours — the endpoint can be hammered without moving the bill.
 import json
 import os
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import boto3
 
@@ -39,7 +39,7 @@ def _cached():
         item = _dynamo.get_item(TableName=TABLE, Key={"pk": {"S": "status#cache"}}).get("Item")
         if item and int(item["expires_at"]["N"]) > time.time():
             return json.loads(item["payload"]["S"])
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - cache is best-effort
         print(f"cache read failed: {exc}")
     return None
 
@@ -51,12 +51,12 @@ def _store(payload):
             "payload": {"S": json.dumps(payload)},
             "expires_at": {"N": str(int(time.time()) + CACHE_SECONDS)},
         })
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - cache is best-effort
         print(f"cache write failed: {exc}")
 
 
 def _month_to_date_cost():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     start = now.replace(day=1).strftime("%Y-%m-%d")
     end = (now + timedelta(days=1)).strftime("%Y-%m-%d")
     res = _ce.get_cost_and_usage(
@@ -71,7 +71,7 @@ def _month_to_date_cost():
 
 
 def _chat_invocations_7d():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     res = _cw.get_metric_statistics(
         Namespace="AWS/Lambda",
         MetricName="Invocations",
@@ -93,11 +93,11 @@ def lambda_handler(event, _context):
         payload = {"generated_at": int(time.time())}
         try:
             payload["month_to_date_cost"] = _month_to_date_cost()
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - report what we can
             print(f"cost explorer failed: {exc}")
         try:
             payload["chat_invocations"] = _chat_invocations_7d()
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - report what we can
             print(f"cloudwatch failed: {exc}")
         _store(payload)
 

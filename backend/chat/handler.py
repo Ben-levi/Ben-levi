@@ -14,8 +14,8 @@ Design notes:
 import json
 import os
 import time
-import urllib.request
 import urllib.error
+import urllib.request
 
 import boto3
 
@@ -121,7 +121,7 @@ def lambda_handler(event, _context):
     try:
         if _rate_limited(ip):
             return _resp(429, {"error": "rate limited"}, origin)
-    except Exception as exc:  # rate limiter must never take the chat down
+    except Exception as exc:  # noqa: BLE001 - rate limiter must never take the chat down
         print(f"rate-limit check failed: {exc}")
 
     try:
@@ -130,6 +130,6 @@ def lambda_handler(event, _context):
     except urllib.error.HTTPError as exc:
         print(f"anthropic error {exc.code}: {exc.read()[:500]}")
         return _resp(502, {"error": "upstream LLM error"}, origin)
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - last-resort guard, returns a clean 500
         print(f"unexpected error: {exc}")
         return _resp(500, {"error": "internal error"}, origin)

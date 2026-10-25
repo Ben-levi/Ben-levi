@@ -16,8 +16,8 @@ jobs:
 
       - name: Python — lint (ruff)
         run: |
-          pipx install ruff
-          ruff check backend/
+          pipx install ruff==0.16.9
+          ruff check --target-version py312 backend/
 
       - name: Terraform — fmt & validate
         uses: hashicorp/setup-terraform@v3

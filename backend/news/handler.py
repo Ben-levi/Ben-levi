@@ -67,7 +67,7 @@ def fetch_rss(source, url):
                 "url": link.get("href", "") if link is not None else "",
                 "ts": _parse_ts(it.findtext("atom:updated", default="", namespaces=ns)) or int(time.time()),
             })
-    except Exception as exc:  # one broken feed must not kill the pipeline
+    except Exception as exc:  # noqa: BLE001 - one broken feed must not kill the pipeline
         print(f"feed {source} failed: {exc}")
     return items[:8]
 
@@ -84,7 +84,7 @@ def fetch_hackernews():
             "url": h.get("url") or f"https://news.ycombinator.com/item?id={h['objectID']}",
             "ts": h.get("created_at_i", int(time.time())),
         } for h in data.get("hits", [])]
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - HN outage must not kill the pipeline
         print(f"hn failed: {exc}")
         return []
 
